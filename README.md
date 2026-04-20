@@ -55,7 +55,7 @@ The `traffic_utils` directory is a local Python package that contains all the mo
 The project uses `NetTrafficData.csv`, which should be placed in the `data/` directory.
 
 ## Contributors
-- **Sriram**
+- **Tadishetty Sriram**
 - **Akhiranad Boddani**
 - **Thota Ritvika reddy**
 
