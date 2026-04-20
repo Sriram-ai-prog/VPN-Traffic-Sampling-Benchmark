@@ -1,0 +1,2402 @@
+
+--- Random Oversampling ---
+[RandomOverSampler] mean_KS=0.0866 | p>0.05=0.031 | corr_diff=0.0364 | CVR=0.0000
+
+================================================================================
+REPORT: [RandomOverSampler] | Train Samples: 71694
+================================================================================
+
+--- 2. MODEL TUNING (Reproducibility) ---
+ > Tuning RandomForest... Done. Best CV F1: 0.9599
+   [Params] {'n_estimators': 102, 'max_depth': 18, 'min_samples_leaf': 2}
+ > Tuning XGBoost... Done. Best CV F1: 0.9693
+   [Params] {'n_estimators': 497, 'max_depth': 7, 'learning_rate': 0.09958647904866572, 'subsample': 0.9654273501003917, 'colsample_bytree': 0.7841920610894955}
+ > Tuning HistGradient... Done. Best CV F1: 0.9665
+   [Params] {'max_iter': 496, 'learning_rate': 0.07295787212557164, 'max_depth': 9, 'l2_regularization': 1.363518738808215}
+
+--- 3. CLASSIFICATION RESULTS (Performance & Overfitting Check) ---
+
+>> Training RandomForest...
+[RandomOverSampler] RandomForest RESULTS:
+   Train Acc:   0.9885  (Use to check overfitting)
+   Test Acc:    0.8710
+   Macro-F1:    0.8332
+   Weighted-F1: 0.8718
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8801    0.8865    0.8833       969
+         CHAT     0.7690    0.8245    0.7958       319
+           FT     0.9017    0.8261    0.8622       322
+         MAIL     0.7143    0.8468    0.7749       124
+          P2P     0.8435    0.9010    0.8713       293
+    STREAMING     0.8558    0.7946    0.8241       112
+         VOIP     0.9829    0.9685    0.9757       952
+ VPN-BROWSING     0.8812    0.8443    0.8623      1098
+     VPN-CHAT     0.7343    0.7859    0.7592       327
+       VPN-FT     0.7491    0.7940    0.7709       500
+     VPN-MAIL     0.7711    0.7191    0.7442        89
+      VPN-P2P     0.6814    0.6471    0.6638       119
+VPN-STREAMING     0.9147    0.9440    0.9291       125
+     VPN-VOIP     0.9627    0.9350    0.9486       800
+
+     accuracy                         0.8710      6149
+    macro avg     0.8315    0.8370    0.8332      6149
+ weighted avg     0.8737    0.8710    0.8718      6149
+
+
+[Confusion Focus (RandomForest)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 45   
+CHAT                 | VPN-CHAT                       | 18   
+FT                   | VPN-FT                         | 17   
+MAIL                 | FT                             | 5    
+P2P                  | BROWSING                       | 6    
+STREAMING            | BROWSING                       | 6    
+VOIP                 | VPN-VOIP                       | 14   
+VPN-BROWSING         | BROWSING                       | 63   
+VPN-CHAT             | VPN-FT                         | 23   
+VPN-FT               | VPN-BROWSING                   | 24   
+VPN-MAIL             | MAIL                           | 11   
+VPN-P2P              | P2P                            | 15   
+VPN-STREAMING        | STREAMING                      | 2    
+VPN-VOIP             | P2P                            | 12   
+-----------------------------------------------------------------
+
+>> Training XGBoost...
+[RandomOverSampler] XGBoost RESULTS:
+   Train Acc:   0.9901  (Use to check overfitting)
+   Test Acc:    0.8966
+   Macro-F1:    0.8562
+   Weighted-F1: 0.8968
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.9062    0.9174    0.9118       969
+         CHAT     0.8621    0.8621    0.8621       319
+           FT     0.9088    0.8354    0.8706       322
+         MAIL     0.7891    0.8145    0.8016       124
+          P2P     0.9147    0.9147    0.9147       293
+    STREAMING     0.8318    0.7946    0.8128       112
+         VOIP     0.9809    0.9706    0.9757       952
+ VPN-BROWSING     0.8887    0.8944    0.8915      1098
+     VPN-CHAT     0.8149    0.8349    0.8248       327
+       VPN-FT     0.8061    0.8480    0.8265       500
+     VPN-MAIL     0.7654    0.6966    0.7294        89
+      VPN-P2P     0.6667    0.7059    0.6857       119
+VPN-STREAMING     0.9206    0.9280    0.9243       125
+     VPN-VOIP     0.9656    0.9463    0.9558       800
+
+     accuracy                         0.8966      6149
+    macro avg     0.8587    0.8545    0.8562      6149
+ weighted avg     0.8975    0.8966    0.8968      6149
+
+
+[Confusion Focus (XGBoost)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 48   
+CHAT                 | BROWSING                       | 15   
+FT                   | VPN-FT                         | 22   
+MAIL                 | VPN-MAIL                       | 8    
+P2P                  | VPN-P2P                        | 9    
+STREAMING            | BROWSING                       | 7    
+VOIP                 | VPN-VOIP                       | 13   
+VPN-BROWSING         | BROWSING                       | 43   
+VPN-CHAT             | VPN-BROWSING                   | 22   
+VPN-FT               | VPN-BROWSING                   | 23   
+VPN-MAIL             | MAIL                           | 8    
+VPN-P2P              | P2P                            | 13   
+VPN-STREAMING        | STREAMING                      | 3    
+VPN-VOIP             | VOIP                           | 12   
+-----------------------------------------------------------------
+
+>> Training HistGradient...
+[RandomOverSampler] HistGradient RESULTS:
+   Train Acc:   0.9878  (Use to check overfitting)
+   Test Acc:    0.8936
+   Macro-F1:    0.8583
+   Weighted-F1: 0.8939
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8938    0.9123    0.9030       969
+         CHAT     0.8660    0.8715    0.8688       319
+           FT     0.9088    0.8354    0.8706       322
+         MAIL     0.7687    0.8306    0.7984       124
+          P2P     0.8973    0.8942    0.8957       293
+    STREAMING     0.8333    0.8036    0.8182       112
+         VOIP     0.9810    0.9748    0.9779       952
+ VPN-BROWSING     0.8882    0.8825    0.8853      1098
+     VPN-CHAT     0.8081    0.8502    0.8286       327
+       VPN-FT     0.8078    0.8240    0.8158       500
+     VPN-MAIL     0.7976    0.7528    0.7746        89
+      VPN-P2P     0.6803    0.6975    0.6888       119
+VPN-STREAMING     0.9365    0.9440    0.9402       125
+     VPN-VOIP     0.9593    0.9425    0.9508       800
+
+     accuracy                         0.8936      6149
+    macro avg     0.8591    0.8583    0.8583      6149
+ weighted avg     0.8945    0.8936    0.8939      6149
+
+
+[Confusion Focus (HistGradient)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 44   
+CHAT                 | BROWSING                       | 13   
+FT                   | VPN-FT                         | 17   
+MAIL                 | FT                             | 7    
+P2P                  | VPN-P2P                        | 12   
+STREAMING            | BROWSING                       | 8    
+VOIP                 | VPN-VOIP                       | 14   
+VPN-BROWSING         | BROWSING                       | 53   
+VPN-CHAT             | VPN-BROWSING                   | 21   
+VPN-FT               | VPN-BROWSING                   | 26   
+VPN-MAIL             | MAIL                           | 9    
+VPN-P2P              | P2P                            | 16   
+VPN-STREAMING        | STREAMING                      | 3    
+VPN-VOIP             | VOIP                           | 13   
+-----------------------------------------------------------------
+
+>> Training SoftVoting...
+[RandomOverSampler] SoftVoting RESULTS:
+   Train Acc:   0.9921  (Use to check overfitting)
+   Test Acc:    0.8959
+   Macro-F1:    0.8572
+   Weighted-F1: 0.8961
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.9017    0.9185    0.9100       969
+         CHAT     0.8656    0.8683    0.8670       319
+           FT     0.9060    0.8385    0.8710       322
+         MAIL     0.7710    0.8145    0.7922       124
+          P2P     0.9085    0.9147    0.9116       293
+    STREAMING     0.8318    0.7946    0.8128       112
+         VOIP     0.9820    0.9748    0.9784       952
+ VPN-BROWSING     0.8887    0.8871    0.8879      1098
+     VPN-CHAT     0.8088    0.8410    0.8246       327
+       VPN-FT     0.8062    0.8320    0.8189       500
+     VPN-MAIL     0.7831    0.7303    0.7558        89
+      VPN-P2P     0.6777    0.6891    0.6833       119
+VPN-STREAMING     0.9286    0.9360    0.9323       125
+     VPN-VOIP     0.9656    0.9463    0.9558       800
+
+     accuracy                         0.8959      6149
+    macro avg     0.8590    0.8561    0.8572      6149
+ weighted avg     0.8967    0.8959    0.8961      6149
+
+
+[Confusion Focus (SoftVoting)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 40   
+CHAT                 | BROWSING                       | 13   
+FT                   | VPN-FT                         | 18   
+MAIL                 | FT                             | 7    
+P2P                  | VPN-FT                         | 7    
+STREAMING            | BROWSING                       | 8    
+VOIP                 | VPN-VOIP                       | 10   
+VPN-BROWSING         | BROWSING                       | 47   
+VPN-CHAT             | VPN-BROWSING                   | 21   
+VPN-FT               | VPN-BROWSING                   | 26   
+VPN-MAIL             | MAIL                           | 9    
+VPN-P2P              | P2P                            | 15   
+VPN-STREAMING        | STREAMING                      | 3    
+VPN-VOIP             | VOIP                           | 10   
+-----------------------------------------------------------------
+
+>> Training Stacking...
+[RandomOverSampler] Stacking RESULTS:
+   Train Acc:   0.9932  (Use to check overfitting)
+   Test Acc:    0.8871
+   Macro-F1:    0.8447
+   Weighted-F1: 0.8855
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8704    0.9288    0.8987       969
+         CHAT     0.8855    0.8245    0.8539       319
+           FT     0.8960    0.8292    0.8613       322
+         MAIL     0.8158    0.7500    0.7815       124
+          P2P     0.9218    0.9249    0.9233       293
+    STREAMING     0.9432    0.7411    0.8300       112
+         VOIP     0.9719    0.9811    0.9765       952
+ VPN-BROWSING     0.8189    0.9226    0.8677      1098
+     VPN-CHAT     0.8679    0.7034    0.7770       327
+       VPN-FT     0.8116    0.8100    0.8108       500
+     VPN-MAIL     0.8219    0.6742    0.7407        89
+      VPN-P2P     0.7805    0.5378    0.6368       119
+VPN-STREAMING     0.9402    0.8800    0.9091       125
+     VPN-VOIP     0.9646    0.9525    0.9585       800
+
+     accuracy                         0.8871      6149
+    macro avg     0.8793    0.8186    0.8447      6149
+ weighted avg     0.8880    0.8871    0.8855      6149
+
+
+[Confusion Focus (Stacking)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 55   
+CHAT                 | BROWSING                       | 20   
+FT                   | VPN-FT                         | 22   
+MAIL                 | FT                             | 8    
+P2P                  | BROWSING                       | 10   
+STREAMING            | BROWSING                       | 11   
+VOIP                 | VPN-VOIP                       | 6    
+VPN-BROWSING         | BROWSING                       | 48   
+VPN-CHAT             | VPN-BROWSING                   | 56   
+VPN-FT               | VPN-BROWSING                   | 41   
+VPN-MAIL             | VPN-FT                         | 10   
+VPN-P2P              | P2P                            | 16   
+VPN-STREAMING        | BROWSING                       | 4    
+VPN-VOIP             | VOIP                           | 16   
+-----------------------------------------------------------------
+
+
+
+
+--- SMOTE ---
+[SMOTE] mean_KS=0.0857 | p>0.05=0.062 | corr_diff=0.0362 | CVR=0.0000
+
+================================================================================
+REPORT: [SMOTE] | Train Samples: 71694
+================================================================================
+
+--- 2. MODEL TUNING (Reproducibility) ---
+ > Tuning RandomForest... Done. Best CV F1: 0.9263
+   [Params] {'n_estimators': 277, 'max_depth': 18, 'min_samples_leaf': 2}
+ > Tuning XGBoost... Done. Best CV F1: 0.9431
+   [Params] {'n_estimators': 476, 'max_depth': 7, 'learning_rate': 0.09977288088904436, 'subsample': 0.6263905600453035, 'colsample_bytree': 0.6650010142258178}
+ > Tuning HistGradient... Done. Best CV F1: 0.9393
+   [Params] {'max_iter': 360, 'learning_rate': 0.09913923811199843, 'max_depth': 15, 'l2_regularization': 4.535638116918745}
+
+--- 3. CLASSIFICATION RESULTS (Performance & Overfitting Check) ---
+
+>> Training RandomForest...
+[SMOTE] RandomForest RESULTS:
+   Train Acc:   0.9826  (Use to check overfitting)
+   Test Acc:    0.8702
+   Macro-F1:    0.8265
+   Weighted-F1: 0.8716
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8875    0.8710    0.8792       969
+         CHAT     0.7706    0.8213    0.7951       319
+           FT     0.9126    0.8106    0.8586       322
+         MAIL     0.7537    0.8145    0.7829       124
+          P2P     0.8307    0.8874    0.8581       293
+    STREAMING     0.7863    0.8214    0.8035       112
+         VOIP     0.9800    0.9758    0.9779       952
+ VPN-BROWSING     0.8927    0.8488    0.8702      1098
+     VPN-CHAT     0.7408    0.8043    0.7713       327
+       VPN-FT     0.7709    0.7940    0.7823       500
+     VPN-MAIL     0.6422    0.7865    0.7071        89
+      VPN-P2P     0.5766    0.6639    0.6172       119
+VPN-STREAMING     0.9134    0.9280    0.9206       125
+     VPN-VOIP     0.9638    0.9313    0.9472       800
+
+     accuracy                         0.8702      6149
+    macro avg     0.8158    0.8399    0.8265      6149
+ weighted avg     0.8743    0.8702    0.8716      6149
+
+
+[Confusion Focus (RandomForest)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 45   
+CHAT                 | VPN-CHAT                       | 19   
+FT                   | VPN-MAIL                       | 13   
+MAIL                 | VPN-MAIL                       | 15   
+P2P                  | VPN-P2P                        | 13   
+STREAMING            | BROWSING                       | 5    
+VOIP                 | VPN-VOIP                       | 11   
+VPN-BROWSING         | BROWSING                       | 58   
+VPN-CHAT             | VPN-FT                         | 18   
+VPN-FT               | VPN-CHAT                       | 26   
+VPN-MAIL             | MAIL                           | 7    
+VPN-P2P              | P2P                            | 16   
+VPN-STREAMING        | STREAMING                      | 3    
+VPN-VOIP             | P2P                            | 15   
+-----------------------------------------------------------------
+
+>> Training XGBoost...
+[SMOTE] XGBoost RESULTS:
+   Train Acc:   0.9870  (Use to check overfitting)
+   Test Acc:    0.8925
+   Macro-F1:    0.8547
+   Weighted-F1: 0.8931
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.9041    0.9051    0.9046       969
+         CHAT     0.8369    0.8683    0.8523       319
+           FT     0.8904    0.8323    0.8604       322
+         MAIL     0.8167    0.7903    0.8033       124
+          P2P     0.9051    0.9113    0.9082       293
+    STREAMING     0.8070    0.8214    0.8142       112
+         VOIP     0.9882    0.9685    0.9782       952
+ VPN-BROWSING     0.8884    0.8770    0.8827      1098
+     VPN-CHAT     0.7965    0.8257    0.8108       327
+       VPN-FT     0.8157    0.8320    0.8238       500
+     VPN-MAIL     0.6822    0.8202    0.7449        89
+      VPN-P2P     0.6984    0.7395    0.7184       119
+VPN-STREAMING     0.8855    0.9280    0.9062       125
+     VPN-VOIP     0.9657    0.9513    0.9584       800
+
+     accuracy                         0.8925      6149
+    macro avg     0.8486    0.8622    0.8547      6149
+ weighted avg     0.8942    0.8925    0.8931      6149
+
+
+[Confusion Focus (XGBoost)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 49   
+CHAT                 | BROWSING                       | 14   
+FT                   | VPN-FT                         | 19   
+MAIL                 | VPN-MAIL                       | 14   
+P2P                  | BROWSING                       | 8    
+STREAMING            | BROWSING                       | 6    
+VOIP                 | VPN-VOIP                       | 16   
+VPN-BROWSING         | BROWSING                       | 48   
+VPN-CHAT             | VPN-BROWSING                   | 19   
+VPN-FT               | VPN-BROWSING                   | 24   
+VPN-MAIL             | VPN-FT                         | 6    
+VPN-P2P              | P2P                            | 13   
+VPN-STREAMING        | STREAMING                      | 3    
+VPN-VOIP             | VPN-P2P                        | 7    
+-----------------------------------------------------------------
+
+>> Training HistGradient...
+[SMOTE] HistGradient RESULTS:
+   Train Acc:   0.9807  (Use to check overfitting)
+   Test Acc:    0.8930
+   Macro-F1:    0.8565
+   Weighted-F1: 0.8938
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.9019    0.9009    0.9014       969
+         CHAT     0.8429    0.8746    0.8585       319
+           FT     0.8997    0.8354    0.8663       322
+         MAIL     0.8547    0.8065    0.8299       124
+          P2P     0.9135    0.9010    0.9072       293
+    STREAMING     0.7913    0.8125    0.8018       112
+         VOIP     0.9851    0.9748    0.9799       952
+ VPN-BROWSING     0.8933    0.8689    0.8809      1098
+     VPN-CHAT     0.7896    0.8379    0.8131       327
+       VPN-FT     0.8084    0.8440    0.8258       500
+     VPN-MAIL     0.7019    0.8202    0.7565        89
+      VPN-P2P     0.6377    0.7395    0.6848       119
+VPN-STREAMING     0.9141    0.9360    0.9249       125
+     VPN-VOIP     0.9718    0.9487    0.9602       800
+
+     accuracy                         0.8930      6149
+    macro avg     0.8504    0.8644    0.8565      6149
+ weighted avg     0.8954    0.8930    0.8938      6149
+
+
+[Confusion Focus (HistGradient)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 42   
+CHAT                 | VPN-CHAT                       | 15   
+FT                   | VPN-FT                         | 17   
+MAIL                 | VPN-MAIL                       | 9    
+P2P                  | VPN-P2P                        | 13   
+STREAMING            | VPN-BROWSING                   | 6    
+VOIP                 | VPN-VOIP                       | 11   
+VPN-BROWSING         | BROWSING                       | 56   
+VPN-CHAT             | VPN-BROWSING                   | 21   
+VPN-FT               | VPN-BROWSING                   | 22   
+VPN-MAIL             | MAIL                           | 3    
+VPN-P2P              | P2P                            | 12   
+VPN-STREAMING        | STREAMING                      | 2    
+VPN-VOIP             | VOIP                           | 9    
+-----------------------------------------------------------------
+
+>> Training SoftVoting...
+[SMOTE] SoftVoting RESULTS:
+   Train Acc:   0.9871  (Use to check overfitting)
+   Test Acc:    0.8956
+   Macro-F1:    0.8591
+   Weighted-F1: 0.8964
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.9043    0.9071    0.9057       969
+         CHAT     0.8304    0.8746    0.8519       319
+           FT     0.9215    0.8385    0.8780       322
+         MAIL     0.8417    0.8145    0.8279       124
+          P2P     0.9072    0.9010    0.9041       293
+    STREAMING     0.8017    0.8304    0.8158       112
+         VOIP     0.9882    0.9716    0.9799       952
+ VPN-BROWSING     0.8939    0.8743    0.8840      1098
+     VPN-CHAT     0.8012    0.8379    0.8191       327
+       VPN-FT     0.8210    0.8440    0.8323       500
+     VPN-MAIL     0.6789    0.8315    0.7475        89
+      VPN-P2P     0.6617    0.7395    0.6984       119
+VPN-STREAMING     0.9070    0.9360    0.9213       125
+     VPN-VOIP     0.9707    0.9513    0.9609       800
+
+     accuracy                         0.8956      6149
+    macro avg     0.8521    0.8680    0.8591      6149
+ weighted avg     0.8980    0.8956    0.8964      6149
+
+
+[Confusion Focus (SoftVoting)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 43   
+CHAT                 | BROWSING                       | 12   
+FT                   | VPN-FT                         | 17   
+MAIL                 | VPN-MAIL                       | 13   
+P2P                  | VPN-P2P                        | 10   
+STREAMING            | BROWSING                       | 5    
+VOIP                 | VPN-VOIP                       | 15   
+VPN-BROWSING         | BROWSING                       | 54   
+VPN-CHAT             | VPN-BROWSING                   | 18   
+VPN-FT               | VPN-BROWSING                   | 24   
+VPN-MAIL             | VPN-FT                         | 5    
+VPN-P2P              | P2P                            | 13   
+VPN-STREAMING        | STREAMING                      | 2    
+VPN-VOIP             | VOIP                           | 7    
+-----------------------------------------------------------------
+
+>> Training Stacking...
+[SMOTE] Stacking RESULTS:
+   Train Acc:   0.9851  (Use to check overfitting)
+   Test Acc:    0.8945
+   Macro-F1:    0.8556
+   Weighted-F1: 0.8949
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8902    0.9123    0.9011       969
+         CHAT     0.8399    0.8715    0.8554       319
+           FT     0.9088    0.8354    0.8706       322
+         MAIL     0.8462    0.7984    0.8216       124
+          P2P     0.9152    0.8840    0.8993       293
+    STREAMING     0.8273    0.8125    0.8198       112
+         VOIP     0.9841    0.9737    0.9789       952
+ VPN-BROWSING     0.8895    0.8871    0.8883      1098
+     VPN-CHAT     0.8142    0.8043    0.8092       327
+       VPN-FT     0.8255    0.8420    0.8337       500
+     VPN-MAIL     0.6733    0.7640    0.7158        89
+      VPN-P2P     0.6567    0.7395    0.6957       119
+VPN-STREAMING     0.9213    0.9360    0.9286       125
+     VPN-VOIP     0.9682    0.9525    0.9603       800
+
+     accuracy                         0.8945      6149
+    macro avg     0.8543    0.8581    0.8556      6149
+ weighted avg     0.8960    0.8945    0.8949      6149
+
+
+[Confusion Focus (Stacking)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 48   
+CHAT                 | BROWSING                       | 16   
+FT                   | VPN-FT                         | 19   
+MAIL                 | VPN-MAIL                       | 11   
+P2P                  | VPN-P2P                        | 17   
+STREAMING            | BROWSING                       | 6    
+VOIP                 | VPN-VOIP                       | 14   
+VPN-BROWSING         | BROWSING                       | 54   
+VPN-CHAT             | VPN-BROWSING                   | 21   
+VPN-FT               | VPN-BROWSING                   | 24   
+VPN-MAIL             | VPN-FT                         | 8    
+VPN-P2P              | P2P                            | 13   
+VPN-STREAMING        | STREAMING                      | 2    
+VPN-VOIP             | VOIP                           | 9    
+-----------------------------------------------------------------
+
+
+
+
+
+--- Random Undersampling ---
+[RandomUnderSampler] mean_KS=0.0862 | p>0.05=0.062 | corr_diff=0.0529 | CVR=0.0000
+
+================================================================================
+REPORT: [RandomUnderSampler] | Train Samples: 5782
+================================================================================
+
+--- 2. MODEL TUNING (Reproducibility) ---
+ > Tuning RandomForest... Done. Best CV F1: 0.7970
+   [Params] {'n_estimators': 374, 'max_depth': 17, 'min_samples_leaf': 3}
+ > Tuning XGBoost... Done. Best CV F1: 0.8277
+   [Params] {'n_estimators': 364, 'max_depth': 9, 'learning_rate': 0.08186083063766872, 'subsample': 0.948467181294194, 'colsample_bytree': 0.7346817001959204}
+ > Tuning HistGradient... Done. Best CV F1: 0.8301
+   [Params] {'max_iter': 184, 'learning_rate': 0.09699786970255177, 'max_depth': 8, 'l2_regularization': 0.49244829308071436}
+
+--- 3. CLASSIFICATION RESULTS (Performance & Overfitting Check) ---
+
+>> Training RandomForest...
+[RandomUnderSampler] RandomForest RESULTS:
+   Train Acc:   0.9488  (Use to check overfitting)
+   Test Acc:    0.7912
+   Macro-F1:    0.7481
+   Weighted-F1: 0.7953
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8031    0.7492    0.7752       969
+         CHAT     0.6071    0.7994    0.6901       319
+           FT     0.9044    0.7050    0.7923       322
+         MAIL     0.6036    0.8226    0.6962       124
+          P2P     0.7426    0.8567    0.7956       293
+    STREAMING     0.5515    0.8125    0.6570       112
+         VOIP     0.9784    0.9538    0.9660       952
+ VPN-BROWSING     0.8175    0.6894    0.7480      1098
+     VPN-CHAT     0.6211    0.7370    0.6741       327
+       VPN-FT     0.7306    0.6780    0.7033       500
+     VPN-MAIL     0.5180    0.8090    0.6316        89
+      VPN-P2P     0.4677    0.7311    0.5705       119
+VPN-STREAMING     0.8261    0.9120    0.8669       125
+     VPN-VOIP     0.9482    0.8688    0.9067       800
+
+     accuracy                         0.7912      6149
+    macro avg     0.7229    0.7946    0.7481      6149
+ weighted avg     0.8096    0.7912    0.7953      6149
+
+
+[Confusion Focus (RandomForest)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 83   
+CHAT                 | VPN-CHAT                       | 16   
+FT                   | MAIL                           | 16   
+MAIL                 | VPN-MAIL                       | 15   
+P2P                  | CHAT                           | 12   
+STREAMING            | VPN-P2P                        | 5    
+VOIP                 | VPN-VOIP                       | 22   
+VPN-BROWSING         | BROWSING                       | 130  
+VPN-CHAT             | CHAT                           | 18   
+VPN-FT               | VPN-CHAT                       | 44   
+VPN-MAIL             | MAIL                           | 8    
+VPN-P2P              | P2P                            | 15   
+VPN-STREAMING        | VPN-P2P                        | 7    
+VPN-VOIP             | P2P                            | 27   
+-----------------------------------------------------------------
+
+>> Training XGBoost...
+[RandomUnderSampler] XGBoost RESULTS:
+   Train Acc:   0.9927  (Use to check overfitting)
+   Test Acc:    0.8229
+   Macro-F1:    0.7858
+   Weighted-F1: 0.8260
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8482    0.7668    0.8054       969
+         CHAT     0.6707    0.8683    0.7568       319
+           FT     0.8974    0.7609    0.8235       322
+         MAIL     0.6503    0.8548    0.7387       124
+          P2P     0.8401    0.8430    0.8416       293
+    STREAMING     0.5486    0.8571    0.6690       112
+         VOIP     0.9691    0.9548    0.9619       952
+ VPN-BROWSING     0.8330    0.7404    0.7840      1098
+     VPN-CHAT     0.6909    0.7859    0.7353       327
+       VPN-FT     0.7677    0.7600    0.7638       500
+     VPN-MAIL     0.6832    0.7753    0.7263        89
+      VPN-P2P     0.4973    0.7647    0.6026       119
+VPN-STREAMING     0.8333    0.9200    0.8745       125
+     VPN-VOIP     0.9468    0.8900    0.9175       800
+
+     accuracy                         0.8229      6149
+    macro avg     0.7626    0.8244    0.7858      6149
+ weighted avg     0.8362    0.8229    0.8260      6149
+
+
+[Confusion Focus (XGBoost)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 87   
+CHAT                 | VPN-CHAT                       | 13   
+FT                   | VPN-FT                         | 15   
+MAIL                 | VPN-MAIL                       | 9    
+P2P                  | VPN-P2P                        | 18   
+STREAMING            | VPN-P2P                        | 6    
+VOIP                 | VPN-VOIP                       | 19   
+VPN-BROWSING         | BROWSING                       | 96   
+VPN-CHAT             | VPN-BROWSING                   | 18   
+VPN-FT               | VPN-CHAT                       | 31   
+VPN-MAIL             | MAIL                           | 8    
+VPN-P2P              | P2P                            | 11   
+VPN-STREAMING        | VPN-P2P                        | 5    
+VPN-VOIP             | VOIP                           | 20   
+-----------------------------------------------------------------
+
+>> Training HistGradient...
+[RandomUnderSampler] HistGradient RESULTS:
+   Train Acc:   0.9936  (Use to check overfitting)
+   Test Acc:    0.8250
+   Macro-F1:    0.7897
+   Weighted-F1: 0.8281
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8595    0.7575    0.8053       969
+         CHAT     0.6667    0.8777    0.7578       319
+           FT     0.8773    0.7547    0.8114       322
+         MAIL     0.6522    0.8468    0.7368       124
+          P2P     0.8261    0.8430    0.8345       293
+    STREAMING     0.5818    0.8571    0.6931       112
+         VOIP     0.9732    0.9527    0.9628       952
+ VPN-BROWSING     0.8360    0.7568    0.7945      1098
+     VPN-CHAT     0.6870    0.7920    0.7358       327
+       VPN-FT     0.7812    0.7640    0.7725       500
+     VPN-MAIL     0.6696    0.8427    0.7463        89
+      VPN-P2P     0.4973    0.7731    0.6053       119
+VPN-STREAMING     0.8636    0.9120    0.8872       125
+     VPN-VOIP     0.9415    0.8850    0.9124       800
+
+     accuracy                         0.8250      6149
+    macro avg     0.7652    0.8297    0.7897      6149
+ weighted avg     0.8385    0.8250    0.8281      6149
+
+
+[Confusion Focus (HistGradient)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 92   
+CHAT                 | VPN-CHAT                       | 13   
+FT                   | MAIL                           | 16   
+MAIL                 | VPN-MAIL                       | 9    
+P2P                  | VPN-P2P                        | 21   
+STREAMING            | BROWSING                       | 5    
+VOIP                 | VPN-VOIP                       | 25   
+VPN-BROWSING         | BROWSING                       | 82   
+VPN-CHAT             | VPN-BROWSING                   | 16   
+VPN-FT               | VPN-CHAT                       | 30   
+VPN-MAIL             | MAIL                           | 5    
+VPN-P2P              | P2P                            | 11   
+VPN-STREAMING        | VPN-P2P                        | 5    
+VPN-VOIP             | P2P                            | 18   
+-----------------------------------------------------------------
+
+>> Training SoftVoting...
+[RandomUnderSampler] SoftVoting RESULTS:
+   Train Acc:   0.9952  (Use to check overfitting)
+   Test Acc:    0.8257
+   Macro-F1:    0.7902
+   Weighted-F1: 0.8288
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8514    0.7688    0.8080       969
+         CHAT     0.6675    0.8683    0.7548       319
+           FT     0.8845    0.7609    0.8180       322
+         MAIL     0.6541    0.8387    0.7350       124
+          P2P     0.8412    0.8498    0.8455       293
+    STREAMING     0.5749    0.8571    0.6882       112
+         VOIP     0.9743    0.9548    0.9645       952
+ VPN-BROWSING     0.8296    0.7450    0.7850      1098
+     VPN-CHAT     0.6976    0.8043    0.7472       327
+       VPN-FT     0.7847    0.7580    0.7711       500
+     VPN-MAIL     0.6952    0.8202    0.7526        89
+      VPN-P2P     0.4789    0.7647    0.5890       119
+VPN-STREAMING     0.8519    0.9200    0.8846       125
+     VPN-VOIP     0.9494    0.8912    0.9194       800
+
+     accuracy                         0.8257      6149
+    macro avg     0.7668    0.8287    0.7902      6149
+ weighted avg     0.8389    0.8257    0.8288      6149
+
+
+[Confusion Focus (SoftVoting)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 93   
+CHAT                 | VPN-CHAT                       | 11   
+FT                   | VPN-FT                         | 15   
+MAIL                 | VPN-MAIL                       | 9    
+P2P                  | VPN-P2P                        | 19   
+STREAMING            | VPN-P2P                        | 6    
+VOIP                 | VPN-VOIP                       | 22   
+VPN-BROWSING         | BROWSING                       | 96   
+VPN-CHAT             | VPN-BROWSING                   | 15   
+VPN-FT               | VPN-CHAT                       | 31   
+VPN-MAIL             | MAIL                           | 7    
+VPN-P2P              | P2P                            | 11   
+VPN-STREAMING        | VPN-P2P                        | 5    
+VPN-VOIP             | VPN-P2P                        | 18   
+-----------------------------------------------------------------
+
+>> Training Stacking...
+[RandomUnderSampler] Stacking RESULTS:
+   Train Acc:   0.9723  (Use to check overfitting)
+   Test Acc:    0.8193
+   Macro-F1:    0.7896
+   Weighted-F1: 0.8225
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8366    0.7554    0.7939       969
+         CHAT     0.6422    0.8777    0.7417       319
+           FT     0.8676    0.7733    0.8177       322
+         MAIL     0.6835    0.8710    0.7660       124
+          P2P     0.8291    0.8942    0.8604       293
+    STREAMING     0.5281    0.8393    0.6483       112
+         VOIP     0.9816    0.9527    0.9670       952
+ VPN-BROWSING     0.8270    0.7186    0.7690      1098
+     VPN-CHAT     0.6839    0.7676    0.7233       327
+       VPN-FT     0.7486    0.7860    0.7668       500
+     VPN-MAIL     0.7474    0.7978    0.7717        89
+      VPN-P2P     0.5143    0.7563    0.6122       119
+VPN-STREAMING     0.8976    0.9120    0.9048       125
+     VPN-VOIP     0.9536    0.8725    0.9112       800
+
+     accuracy                         0.8193      6149
+    macro avg     0.7672    0.8267    0.7896      6149
+ weighted avg     0.8335    0.8193    0.8225      6149
+
+
+[Confusion Focus (Stacking)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 88   
+CHAT                 | VPN-CHAT                       | 9    
+FT                   | VPN-FT                         | 15   
+MAIL                 | FT                             | 5    
+P2P                  | VPN-P2P                        | 7    
+STREAMING            | BROWSING                       | 6    
+VOIP                 | VPN-VOIP                       | 22   
+VPN-BROWSING         | BROWSING                       | 100  
+VPN-CHAT             | CHAT                           | 20   
+VPN-FT               | VPN-CHAT                       | 32   
+VPN-MAIL             | MAIL                           | 8    
+VPN-P2P              | P2P                            | 13   
+VPN-STREAMING        | VPN-P2P                        | 5    
+VPN-VOIP             | VPN-P2P                        | 20   
+-----------------------------------------------------------------
+
+
+
+
+
+--- SMOTE-ENN ---
+[SMOTE-ENN] mean_KS=0.0857 | p>0.05=0.062 | corr_diff=0.0413 | CVR=0.0000
+
+================================================================================
+REPORT: [SMOTE-ENN] | Train Samples: 52804
+================================================================================
+
+--- 2. MODEL TUNING (Reproducibility) ---
+ > Tuning RandomForest... Done. Best CV F1: 0.9827
+   [Params] {'n_estimators': 495, 'max_depth': 20, 'min_samples_leaf': 2}
+ > Tuning XGBoost... Done. Best CV F1: 0.9867
+   [Params] {'n_estimators': 415, 'max_depth': 7, 'learning_rate': 0.0970484242796998, 'subsample': 0.7116859403934859, 'colsample_bytree': 0.9165319371101058}
+ > Tuning HistGradient... Done. Best CV F1: 0.9851
+   [Params] {'max_iter': 328, 'learning_rate': 0.09632183733916007, 'max_depth': 14, 'l2_regularization': 0.6641762025473898}
+
+--- 3. CLASSIFICATION RESULTS (Performance & Overfitting Check) ---
+
+>> Training RandomForest...
+[SMOTE-ENN] RandomForest RESULTS:
+   Train Acc:   0.9988  (Use to check overfitting)
+   Test Acc:    0.7967
+   Macro-F1:    0.7505
+   Weighted-F1: 0.8013
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8046    0.7606    0.7820       969
+         CHAT     0.6561    0.7774    0.7116       319
+           FT     0.8552    0.7702    0.8105       322
+         MAIL     0.6194    0.7742    0.6882       124
+          P2P     0.7697    0.8669    0.8154       293
+    STREAMING     0.4541    0.8393    0.5893       112
+         VOIP     0.9871    0.9643    0.9756       952
+ VPN-BROWSING     0.8781    0.6366    0.7381      1098
+     VPN-CHAT     0.5698    0.7859    0.6607       327
+       VPN-FT     0.7137    0.7280    0.7208       500
+     VPN-MAIL     0.5574    0.7640    0.6445        89
+      VPN-P2P     0.4556    0.6891    0.5485       119
+VPN-STREAMING     0.8712    0.9200    0.8949       125
+     VPN-VOIP     0.9561    0.8988    0.9265       800
+
+     accuracy                         0.7967      6149
+    macro avg     0.7249    0.7982    0.7505      6149
+ weighted avg     0.8200    0.7967    0.8013      6149
+
+
+[Confusion Focus (RandomForest)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 54   
+CHAT                 | VPN-CHAT                       | 26   
+FT                   | VPN-MAIL                       | 13   
+MAIL                 | VPN-MAIL                       | 20   
+P2P                  | VPN-P2P                        | 12   
+STREAMING            | VPN-P2P                        | 9    
+VOIP                 | VPN-VOIP                       | 17   
+VPN-BROWSING         | BROWSING                       | 129  
+VPN-CHAT             | VPN-FT                         | 28   
+VPN-FT               | VPN-CHAT                       | 39   
+VPN-MAIL             | MAIL                           | 10   
+VPN-P2P              | P2P                            | 17   
+VPN-STREAMING        | VPN-P2P                        | 4    
+VPN-VOIP             | P2P                            | 27   
+-----------------------------------------------------------------
+
+>> Training XGBoost...
+[SMOTE-ENN] XGBoost RESULTS:
+   Train Acc:   0.9991  (Use to check overfitting)
+   Test Acc:    0.8244
+   Macro-F1:    0.7786
+   Weighted-F1: 0.8286
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8584    0.7761    0.8152       969
+         CHAT     0.6292    0.8245    0.7137       319
+           FT     0.8451    0.7795    0.8110       322
+         MAIL     0.6387    0.7984    0.7097       124
+          P2P     0.8567    0.8976    0.8767       293
+    STREAMING     0.5109    0.8393    0.6351       112
+         VOIP     0.9870    0.9601    0.9734       952
+ VPN-BROWSING     0.8941    0.6922    0.7803      1098
+     VPN-CHAT     0.6268    0.8165    0.7092       327
+       VPN-FT     0.7620    0.7940    0.7777       500
+     VPN-MAIL     0.5547    0.7978    0.6544        89
+      VPN-P2P     0.5091    0.7059    0.5915       119
+VPN-STREAMING     0.8864    0.9360    0.9105       125
+     VPN-VOIP     0.9647    0.9213    0.9425       800
+
+     accuracy                         0.8244      6149
+    macro avg     0.7517    0.8242    0.7786      6149
+ weighted avg     0.8444    0.8244    0.8286      6149
+
+
+[Confusion Focus (XGBoost)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 54   
+CHAT                 | VPN-CHAT                       | 20   
+FT                   | MAIL                           | 15   
+MAIL                 | VPN-MAIL                       | 17   
+P2P                  | VPN-P2P                        | 11   
+STREAMING            | VPN-P2P                        | 8    
+VOIP                 | VPN-VOIP                       | 17   
+VPN-BROWSING         | BROWSING                       | 81   
+VPN-CHAT             | VPN-FT                         | 21   
+VPN-FT               | VPN-CHAT                       | 32   
+VPN-MAIL             | MAIL                           | 7    
+VPN-P2P              | P2P                            | 15   
+VPN-STREAMING        | VPN-P2P                        | 3    
+VPN-VOIP             | VPN-P2P                        | 14   
+-----------------------------------------------------------------
+
+>> Training HistGradient...
+[SMOTE-ENN] HistGradient RESULTS:
+   Train Acc:   0.9982  (Use to check overfitting)
+   Test Acc:    0.8229
+   Macro-F1:    0.7790
+   Weighted-F1: 0.8272
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8648    0.7657    0.8123       969
+         CHAT     0.6123    0.8119    0.6981       319
+           FT     0.8655    0.7795    0.8203       322
+         MAIL     0.6369    0.8065    0.7117       124
+          P2P     0.8497    0.8874    0.8681       293
+    STREAMING     0.5082    0.8304    0.6305       112
+         VOIP     0.9882    0.9643    0.9761       952
+ VPN-BROWSING     0.8791    0.7022    0.7808      1098
+     VPN-CHAT     0.6168    0.8073    0.6993       327
+       VPN-FT     0.7661    0.7860    0.7759       500
+     VPN-MAIL     0.5748    0.8202    0.6759        89
+      VPN-P2P     0.5316    0.7059    0.6065       119
+VPN-STREAMING     0.8931    0.9360    0.9141       125
+     VPN-VOIP     0.9558    0.9187    0.9369       800
+
+     accuracy                         0.8229      6149
+    macro avg     0.7531    0.8230    0.7790      6149
+ weighted avg     0.8421    0.8229    0.8272      6149
+
+
+[Confusion Focus (HistGradient)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 68   
+CHAT                 | VPN-CHAT                       | 24   
+FT                   | MAIL                           | 17   
+MAIL                 | VPN-MAIL                       | 16   
+P2P                  | VPN-P2P                        | 12   
+STREAMING            | VPN-P2P                        | 8    
+VOIP                 | VPN-VOIP                       | 14   
+VPN-BROWSING         | BROWSING                       | 76   
+VPN-CHAT             | VPN-FT                         | 21   
+VPN-FT               | VPN-CHAT                       | 28   
+VPN-MAIL             | MAIL                           | 6    
+VPN-P2P              | P2P                            | 13   
+VPN-STREAMING        | VPN-P2P                        | 4    
+VPN-VOIP             | P2P                            | 12   
+-----------------------------------------------------------------
+
+>> Training SoftVoting...
+[SMOTE-ENN] SoftVoting RESULTS:
+   Train Acc:   0.9995  (Use to check overfitting)
+   Test Acc:    0.8252
+   Macro-F1:    0.7814
+   Weighted-F1: 0.8294
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8547    0.7771    0.8141       969
+         CHAT     0.6187    0.8088    0.7011       319
+           FT     0.8514    0.7826    0.8155       322
+         MAIL     0.6712    0.7903    0.7259       124
+          P2P     0.8462    0.9010    0.8727       293
+    STREAMING     0.5053    0.8482    0.6333       112
+         VOIP     0.9881    0.9622    0.9750       952
+ VPN-BROWSING     0.8947    0.6967    0.7834      1098
+     VPN-CHAT     0.6303    0.8135    0.7103       327
+       VPN-FT     0.7562    0.7940    0.7746       500
+     VPN-MAIL     0.5703    0.8202    0.6728        89
+      VPN-P2P     0.5312    0.7143    0.6093       119
+VPN-STREAMING     0.8923    0.9280    0.9098       125
+     VPN-VOIP     0.9659    0.9200    0.9424       800
+
+     accuracy                         0.8252      6149
+    macro avg     0.7555    0.8255    0.7814      6149
+ weighted avg     0.8445    0.8252    0.8294      6149
+
+
+[Confusion Focus (SoftVoting)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 55   
+CHAT                 | VPN-CHAT                       | 22   
+FT                   | MAIL                           | 14   
+MAIL                 | VPN-MAIL                       | 17   
+P2P                  | VPN-P2P                        | 10   
+STREAMING            | VPN-P2P                        | 8    
+VOIP                 | VPN-VOIP                       | 15   
+VPN-BROWSING         | BROWSING                       | 85   
+VPN-CHAT             | VPN-FT                         | 22   
+VPN-FT               | VPN-CHAT                       | 27   
+VPN-MAIL             | MAIL                           | 6    
+VPN-P2P              | P2P                            | 15   
+VPN-STREAMING        | VPN-P2P                        | 4    
+VPN-VOIP             | P2P                            | 13   
+-----------------------------------------------------------------
+
+>> Training Stacking...
+[SMOTE-ENN] Stacking RESULTS:
+   Train Acc:   0.9997  (Use to check overfitting)
+   Test Acc:    0.8188
+   Macro-F1:    0.7762
+   Weighted-F1: 0.8224
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8476    0.7688    0.8063       969
+         CHAT     0.6508    0.8119    0.7225       319
+           FT     0.8133    0.7981    0.8056       322
+         MAIL     0.7239    0.7823    0.7519       124
+          P2P     0.8328    0.8840    0.8576       293
+    STREAMING     0.5106    0.8571    0.6400       112
+         VOIP     0.9807    0.9632    0.9719       952
+ VPN-BROWSING     0.8905    0.6812    0.7719      1098
+     VPN-CHAT     0.6150    0.8012    0.6959       327
+       VPN-FT     0.7315    0.7900    0.7596       500
+     VPN-MAIL     0.5520    0.7753    0.6449        89
+      VPN-P2P     0.5188    0.6975    0.5950       119
+VPN-STREAMING     0.8923    0.9280    0.9098       125
+     VPN-VOIP     0.9544    0.9150    0.9343       800
+
+     accuracy                         0.8188      6149
+    macro avg     0.7510    0.8181    0.7762      6149
+ weighted avg     0.8369    0.8188    0.8224      6149
+
+
+[Confusion Focus (Stacking)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 58   
+CHAT                 | VPN-CHAT                       | 18   
+FT                   | MAIL                           | 11   
+MAIL                 | VPN-MAIL                       | 19   
+P2P                  | VPN-P2P                        | 11   
+STREAMING            | VPN-P2P                        | 8    
+VOIP                 | VPN-VOIP                       | 20   
+VPN-BROWSING         | BROWSING                       | 94   
+VPN-CHAT             | VPN-FT                         | 26   
+VPN-FT               | VPN-CHAT                       | 34   
+VPN-MAIL             | MAIL                           | 6    
+VPN-P2P              | P2P                            | 15   
+VPN-STREAMING        | STREAMING                      | 3    
+VPN-VOIP             | P2P                            | 15   
+-----------------------------------------------------------------
+
+
+
+
+
+--- SMOTE-Tomek ---
+[SMOTE-Tomek] mean_KS=0.0832 | p>0.05=0.062 | corr_diff=0.0391 | CVR=0.0000
+
+================================================================================
+REPORT: [SMOTE-Tomek] | Train Samples: 68602
+================================================================================
+
+--- 2. MODEL TUNING (Reproducibility) ---
+ > Tuning RandomForest... Done. Best CV F1: 0.9319
+   [Params] {'n_estimators': 363, 'max_depth': 18, 'min_samples_leaf': 3}
+ > Tuning XGBoost... Done. Best CV F1: 0.9539
+   [Params] {'n_estimators': 486, 'max_depth': 10, 'learning_rate': 0.09603475005070645, 'subsample': 0.85129451620701, 'colsample_bytree': 0.7346898163733614}
+ > Tuning HistGradient... Done. Best CV F1: 0.9504
+   [Params] {'max_iter': 494, 'learning_rate': 0.0998497360821603, 'max_depth': 10, 'l2_regularization': 2.077819860614452}
+
+--- 3. CLASSIFICATION RESULTS (Performance & Overfitting Check) ---
+
+>> Training RandomForest...
+[SMOTE-Tomek] RandomForest RESULTS:
+   Train Acc:   0.9806  (Use to check overfitting)
+   Test Acc:    0.8644
+   Macro-F1:    0.8232
+   Weighted-F1: 0.8660
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8720    0.8720    0.8720       969
+         CHAT     0.7688    0.8025    0.7853       319
+           FT     0.9062    0.8106    0.8557       322
+         MAIL     0.7612    0.8226    0.7907       124
+          P2P     0.8098    0.9010    0.8530       293
+    STREAMING     0.7402    0.8393    0.7866       112
+         VOIP     0.9799    0.9716    0.9757       952
+ VPN-BROWSING     0.9055    0.8206    0.8610      1098
+     VPN-CHAT     0.7201    0.8104    0.7626       327
+       VPN-FT     0.7538    0.7840    0.7686       500
+     VPN-MAIL     0.6604    0.7865    0.7179        89
+      VPN-P2P     0.5845    0.6975    0.6360       119
+VPN-STREAMING     0.8931    0.9360    0.9141       125
+     VPN-VOIP     0.9661    0.9250    0.9451       800
+
+     accuracy                         0.8644      6149
+    macro avg     0.8087    0.8414    0.8232      6149
+ weighted avg     0.8699    0.8644    0.8660      6149
+
+
+[Confusion Focus (RandomForest)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 35   
+CHAT                 | VPN-CHAT                       | 19   
+FT                   | VPN-FT                         | 13   
+MAIL                 | VPN-MAIL                       | 13   
+P2P                  | VPN-P2P                        | 8    
+STREAMING            | BROWSING                       | 5    
+VOIP                 | VPN-VOIP                       | 15   
+VPN-BROWSING         | BROWSING                       | 73   
+VPN-CHAT             | VPN-FT                         | 19   
+VPN-FT               | VPN-CHAT                       | 28   
+VPN-MAIL             | MAIL                           | 7    
+VPN-P2P              | P2P                            | 14   
+VPN-STREAMING        | STREAMING                      | 2    
+VPN-VOIP             | P2P                            | 22   
+-----------------------------------------------------------------
+
+>> Training XGBoost...
+[SMOTE-Tomek] XGBoost RESULTS:
+   Train Acc:   0.9925  (Use to check overfitting)
+   Test Acc:    0.8883
+   Macro-F1:    0.8481
+   Weighted-F1: 0.8891
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8933    0.8989    0.8961       969
+         CHAT     0.8173    0.8276    0.8224       319
+           FT     0.9003    0.8416    0.8700       322
+         MAIL     0.8151    0.7823    0.7984       124
+          P2P     0.9132    0.8976    0.9053       293
+    STREAMING     0.7881    0.8304    0.8087       112
+         VOIP     0.9830    0.9737    0.9784       952
+ VPN-BROWSING     0.8922    0.8670    0.8794      1098
+     VPN-CHAT     0.7787    0.8287    0.8030       327
+       VPN-FT     0.8125    0.8320    0.8221       500
+     VPN-MAIL     0.6667    0.7865    0.7216        89
+      VPN-P2P     0.6449    0.7479    0.6926       119
+VPN-STREAMING     0.9055    0.9200    0.9127       125
+     VPN-VOIP     0.9720    0.9537    0.9628       800
+
+     accuracy                         0.8883      6149
+    macro avg     0.8416    0.8563    0.8481      6149
+ weighted avg     0.8906    0.8883    0.8891      6149
+
+
+[Confusion Focus (XGBoost)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 49   
+CHAT                 | VPN-CHAT                       | 23   
+FT                   | VPN-FT                         | 18   
+MAIL                 | VPN-MAIL                       | 16   
+P2P                  | VPN-P2P                        | 9    
+STREAMING            | BROWSING                       | 5    
+VOIP                 | VPN-VOIP                       | 14   
+VPN-BROWSING         | BROWSING                       | 58   
+VPN-CHAT             | VPN-BROWSING                   | 17   
+VPN-FT               | VPN-BROWSING                   | 19   
+VPN-MAIL             | MAIL                           | 4    
+VPN-P2P              | P2P                            | 12   
+VPN-STREAMING        | STREAMING                      | 3    
+VPN-VOIP             | VOIP                           | 10   
+-----------------------------------------------------------------
+
+>> Training HistGradient...
+[SMOTE-Tomek] HistGradient RESULTS:
+   Train Acc:   0.9880  (Use to check overfitting)
+   Test Acc:    0.8886
+   Macro-F1:    0.8491
+   Weighted-F1: 0.8895
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8914    0.8978    0.8946       969
+         CHAT     0.8201    0.8715    0.8450       319
+           FT     0.8907    0.8354    0.8622       322
+         MAIL     0.8017    0.7823    0.7918       124
+          P2P     0.9072    0.9010    0.9041       293
+    STREAMING     0.7561    0.8304    0.7915       112
+         VOIP     0.9800    0.9790    0.9795       952
+ VPN-BROWSING     0.8948    0.8679    0.8812      1098
+     VPN-CHAT     0.7970    0.8165    0.8066       327
+       VPN-FT     0.8205    0.8320    0.8262       500
+     VPN-MAIL     0.6827    0.7978    0.7358        89
+      VPN-P2P     0.6364    0.7647    0.6947       119
+VPN-STREAMING     0.9200    0.9200    0.9200       125
+     VPN-VOIP     0.9752    0.9350    0.9547       800
+
+     accuracy                         0.8886      6149
+    macro avg     0.8410    0.8594    0.8491      6149
+ weighted avg     0.8912    0.8886    0.8895      6149
+
+
+[Confusion Focus (HistGradient)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 42   
+CHAT                 | BROWSING                       | 14   
+FT                   | VPN-FT                         | 16   
+MAIL                 | VPN-MAIL                       | 15   
+P2P                  | VPN-P2P                        | 11   
+STREAMING            | BROWSING                       | 6    
+VOIP                 | VPN-VOIP                       | 7    
+VPN-BROWSING         | BROWSING                       | 59   
+VPN-CHAT             | VPN-BROWSING                   | 20   
+VPN-FT               | VPN-CHAT                       | 18   
+VPN-MAIL             | MAIL                           | 4    
+VPN-P2P              | P2P                            | 11   
+VPN-STREAMING        | STREAMING                      | 3    
+VPN-VOIP             | VOIP                           | 15   
+-----------------------------------------------------------------
+
+>> Training SoftVoting...
+[SMOTE-Tomek] SoftVoting RESULTS:
+   Train Acc:   0.9930  (Use to check overfitting)
+   Test Acc:    0.8922
+   Macro-F1:    0.8522
+   Weighted-F1: 0.8931
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8986    0.9051    0.9018       969
+         CHAT     0.8338    0.8495    0.8416       319
+           FT     0.9054    0.8323    0.8673       322
+         MAIL     0.8220    0.7823    0.8017       124
+          P2P     0.9017    0.9078    0.9048       293
+    STREAMING     0.7949    0.8304    0.8122       112
+         VOIP     0.9820    0.9769    0.9795       952
+ VPN-BROWSING     0.8981    0.8752    0.8865      1098
+     VPN-CHAT     0.7861    0.8318    0.8083       327
+       VPN-FT     0.8155    0.8400    0.8276       500
+     VPN-MAIL     0.6698    0.7978    0.7282        89
+      VPN-P2P     0.6475    0.7563    0.6977       119
+VPN-STREAMING     0.9055    0.9200    0.9127       125
+     VPN-VOIP     0.9780    0.9437    0.9606       800
+
+     accuracy                         0.8922      6149
+    macro avg     0.8456    0.8606    0.8522      6149
+ weighted avg     0.8947    0.8922    0.8931      6149
+
+
+[Confusion Focus (SoftVoting)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 44   
+CHAT                 | VPN-CHAT                       | 17   
+FT                   | VPN-FT                         | 17   
+MAIL                 | VPN-MAIL                       | 15   
+P2P                  | VPN-P2P                        | 8    
+STREAMING            | BROWSING                       | 6    
+VOIP                 | VPN-VOIP                       | 10   
+VPN-BROWSING         | BROWSING                       | 54   
+VPN-CHAT             | VPN-BROWSING                   | 17   
+VPN-FT               | VPN-BROWSING                   | 19   
+VPN-MAIL             | MAIL                           | 4    
+VPN-P2P              | P2P                            | 12   
+VPN-STREAMING        | STREAMING                      | 3    
+VPN-VOIP             | VOIP                           | 12   
+-----------------------------------------------------------------
+
+>> Training Stacking...
+[SMOTE-Tomek] Stacking RESULTS:
+   Train Acc:   0.9921  (Use to check overfitting)
+   Test Acc:    0.8945
+   Macro-F1:    0.8567
+   Weighted-F1: 0.8949
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8883    0.9112    0.8996       969
+         CHAT     0.8641    0.8370    0.8503       319
+           FT     0.9007    0.8447    0.8718       322
+         MAIL     0.8435    0.7823    0.8117       124
+          P2P     0.9201    0.9044    0.9122       293
+    STREAMING     0.8198    0.8125    0.8161       112
+         VOIP     0.9769    0.9769    0.9769       952
+ VPN-BROWSING     0.8895    0.8871    0.8883      1098
+     VPN-CHAT     0.8006    0.8226    0.8115       327
+       VPN-FT     0.8313    0.8380    0.8347       500
+     VPN-MAIL     0.6863    0.7865    0.7330        89
+      VPN-P2P     0.6692    0.7479    0.7063       119
+VPN-STREAMING     0.9274    0.9200    0.9237       125
+     VPN-VOIP     0.9681    0.9487    0.9583       800
+
+     accuracy                         0.8945      6149
+    macro avg     0.8561    0.8586    0.8567      6149
+ weighted avg     0.8957    0.8945    0.8949      6149
+
+
+[Confusion Focus (Stacking)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 51   
+CHAT                 | VPN-CHAT                       | 20   
+FT                   | VPN-FT                         | 15   
+MAIL                 | VPN-MAIL                       | 14   
+P2P                  | VPN-P2P                        | 9    
+STREAMING            | BROWSING                       | 6    
+VOIP                 | VPN-VOIP                       | 11   
+VPN-BROWSING         | BROWSING                       | 58   
+VPN-CHAT             | VPN-BROWSING                   | 24   
+VPN-FT               | VPN-BROWSING                   | 20   
+VPN-MAIL             | VPN-FT                         | 4    
+VPN-P2P              | P2P                            | 13   
+VPN-STREAMING        | FT                             | 3    
+VPN-VOIP             | VOIP                           | 15   
+-----------------------------------------------------------------
+
+
+
+
+
+--- Cluster-based SMOTE ---
+[ClusterSMOTE] mean_KS=0.1723 | p>0.05=0.031 | corr_diff=0.0324 | CVR=0.0000
+
+================================================================================
+REPORT: [ClusterSMOTE] | Train Samples: 71916
+================================================================================
+
+--- 2. MODEL TUNING (Reproducibility) ---
+ > Tuning RandomForest... Done. Best CV F1: 0.9276
+   [Params] {'n_estimators': 104, 'max_depth': 17, 'min_samples_leaf': 2}
+ > Tuning XGBoost... Done. Best CV F1: 0.9496
+   [Params] {'n_estimators': 485, 'max_depth': 9, 'learning_rate': 0.08246447777762042, 'subsample': 0.907777846676835, 'colsample_bytree': 0.6100929020378283}
+ > Tuning HistGradient... Done. Best CV F1: 0.9465
+   [Params] {'max_iter': 428, 'learning_rate': 0.0840284121087794, 'max_depth': 13, 'l2_regularization': 5.074202475523386}
+
+--- 3. CLASSIFICATION RESULTS (Performance & Overfitting Check) ---
+
+>> Training RandomForest...
+[ClusterSMOTE] RandomForest RESULTS:
+   Train Acc:   0.9768  (Use to check overfitting)
+   Test Acc:    0.8592
+   Macro-F1:    0.8139
+   Weighted-F1: 0.8603
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8629    0.8772    0.8700       969
+         CHAT     0.7583    0.7868    0.7723       319
+           FT     0.8759    0.7888    0.8301       322
+         MAIL     0.7500    0.7984    0.7734       124
+          P2P     0.8543    0.8805    0.8672       293
+    STREAMING     0.7373    0.7768    0.7565       112
+         VOIP     0.9810    0.9748    0.9779       952
+ VPN-BROWSING     0.8624    0.8388    0.8504      1098
+     VPN-CHAT     0.7281    0.7615    0.7444       327
+       VPN-FT     0.7514    0.7800    0.7655       500
+     VPN-MAIL     0.6701    0.7303    0.6989        89
+      VPN-P2P     0.5912    0.6807    0.6328       119
+VPN-STREAMING     0.9402    0.8800    0.9091       125
+     VPN-VOIP     0.9673    0.9250    0.9457       800
+
+     accuracy                         0.8592      6149
+    macro avg     0.8093    0.8200    0.8139      6149
+ weighted avg     0.8622    0.8592    0.8603      6149
+
+
+[Confusion Focus (RandomForest)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 58   
+CHAT                 | BROWSING                       | 22   
+FT                   | VPN-FT                         | 17   
+MAIL                 | VPN-MAIL                       | 11   
+P2P                  | VPN-P2P                        | 10   
+STREAMING            | VPN-BROWSING                   | 8    
+VOIP                 | VPN-VOIP                       | 11   
+VPN-BROWSING         | BROWSING                       | 66   
+VPN-CHAT             | VPN-FT                         | 26   
+VPN-FT               | VPN-CHAT                       | 25   
+VPN-MAIL             | MAIL                           | 9    
+VPN-P2P              | P2P                            | 13   
+VPN-STREAMING        | VPN-P2P                        | 5    
+VPN-VOIP             | P2P                            | 14   
+-----------------------------------------------------------------
+
+>> Training XGBoost...
+[ClusterSMOTE] XGBoost RESULTS:
+   Train Acc:   0.9887  (Use to check overfitting)
+   Test Acc:    0.8948
+   Macro-F1:    0.8534
+   Weighted-F1: 0.8950
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.9012    0.9133    0.9072       969
+         CHAT     0.8540    0.8621    0.8580       319
+           FT     0.9064    0.8416    0.8728       322
+         MAIL     0.8000    0.7742    0.7869       124
+          P2P     0.9041    0.9010    0.9026       293
+    STREAMING     0.7982    0.8125    0.8053       112
+         VOIP     0.9821    0.9779    0.9800       952
+ VPN-BROWSING     0.8858    0.8898    0.8878      1098
+     VPN-CHAT     0.8207    0.8257    0.8232       327
+       VPN-FT     0.8015    0.8320    0.8165       500
+     VPN-MAIL     0.7500    0.7416    0.7458        89
+      VPN-P2P     0.6774    0.7059    0.6914       119
+VPN-STREAMING     0.9180    0.8960    0.9069       125
+     VPN-VOIP     0.9708    0.9550    0.9628       800
+
+     accuracy                         0.8948      6149
+    macro avg     0.8550    0.8520    0.8534      6149
+ weighted avg     0.8955    0.8948    0.8950      6149
+
+
+[Confusion Focus (XGBoost)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 48   
+CHAT                 | BROWSING                       | 14   
+FT                   | VPN-FT                         | 20   
+MAIL                 | VPN-MAIL                       | 14   
+P2P                  | VPN-P2P                        | 10   
+STREAMING            | BROWSING                       | 9    
+VOIP                 | VPN-VOIP                       | 9    
+VPN-BROWSING         | BROWSING                       | 47   
+VPN-CHAT             | VPN-BROWSING                   | 23   
+VPN-FT               | VPN-BROWSING                   | 22   
+VPN-MAIL             | MAIL                           | 7    
+VPN-P2P              | P2P                            | 15   
+VPN-STREAMING        | VPN-P2P                        | 4    
+VPN-VOIP             | VOIP                           | 10   
+-----------------------------------------------------------------
+
+>> Training HistGradient...
+[ClusterSMOTE] HistGradient RESULTS:
+   Train Acc:   0.9825  (Use to check overfitting)
+   Test Acc:    0.8904
+   Macro-F1:    0.8484
+   Weighted-F1: 0.8910
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8932    0.9061    0.8996       969
+         CHAT     0.8726    0.8589    0.8657       319
+           FT     0.8852    0.8385    0.8612       322
+         MAIL     0.8190    0.7661    0.7917       124
+          P2P     0.9072    0.9010    0.9041       293
+    STREAMING     0.7931    0.8214    0.8070       112
+         VOIP     0.9810    0.9737    0.9773       952
+ VPN-BROWSING     0.8844    0.8852    0.8848      1098
+     VPN-CHAT     0.8098    0.8073    0.8086       327
+       VPN-FT     0.7893    0.8240    0.8063       500
+     VPN-MAIL     0.6771    0.7303    0.7027        89
+      VPN-P2P     0.6544    0.7479    0.6980       119
+VPN-STREAMING     0.9322    0.8800    0.9053       125
+     VPN-VOIP     0.9757    0.9537    0.9646       800
+
+     accuracy                         0.8904      6149
+    macro avg     0.8482    0.8496    0.8484      6149
+ weighted avg     0.8920    0.8904    0.8910      6149
+
+
+[Confusion Focus (HistGradient)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 49   
+CHAT                 | VPN-CHAT                       | 14   
+FT                   | VPN-FT                         | 20   
+MAIL                 | VPN-MAIL                       | 17   
+P2P                  | VPN-P2P                        | 11   
+STREAMING            | BROWSING                       | 8    
+VOIP                 | VPN-VOIP                       | 10   
+VPN-BROWSING         | BROWSING                       | 54   
+VPN-CHAT             | VPN-BROWSING                   | 27   
+VPN-FT               | VPN-BROWSING                   | 24   
+VPN-MAIL             | VPN-FT                         | 8    
+VPN-P2P              | P2P                            | 14   
+VPN-STREAMING        | VPN-P2P                        | 5    
+VPN-VOIP             | VOIP                           | 10   
+-----------------------------------------------------------------
+
+>> Training SoftVoting...
+[ClusterSMOTE] SoftVoting RESULTS:
+   Train Acc:   0.9888  (Use to check overfitting)
+   Test Acc:    0.8949
+   Macro-F1:    0.8529
+   Weighted-F1: 0.8953
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.9037    0.9102    0.9069       969
+         CHAT     0.8698    0.8589    0.8644       319
+           FT     0.8911    0.8385    0.8640       322
+         MAIL     0.8083    0.7823    0.7951       124
+          P2P     0.9054    0.9147    0.9100       293
+    STREAMING     0.7815    0.8304    0.8052       112
+         VOIP     0.9852    0.9779    0.9815       952
+ VPN-BROWSING     0.8869    0.8925    0.8897      1098
+     VPN-CHAT     0.8140    0.8165    0.8153       327
+       VPN-FT     0.8012    0.8300    0.8153       500
+     VPN-MAIL     0.7021    0.7416    0.7213        89
+      VPN-P2P     0.6855    0.7143    0.6996       119
+VPN-STREAMING     0.9328    0.8880    0.9098       125
+     VPN-VOIP     0.9708    0.9550    0.9628       800
+
+     accuracy                         0.8949      6149
+    macro avg     0.8527    0.8536    0.8529      6149
+ weighted avg     0.8959    0.8949    0.8953      6149
+
+
+[Confusion Focus (SoftVoting)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 46   
+CHAT                 | BROWSING                       | 14   
+FT                   | VPN-FT                         | 19   
+MAIL                 | VPN-MAIL                       | 15   
+P2P                  | VPN-P2P                        | 8    
+STREAMING            | BROWSING                       | 8    
+VOIP                 | VPN-VOIP                       | 11   
+VPN-BROWSING         | BROWSING                       | 47   
+VPN-CHAT             | VPN-BROWSING                   | 24   
+VPN-FT               | VPN-BROWSING                   | 22   
+VPN-MAIL             | MAIL                           | 7    
+VPN-P2P              | P2P                            | 15   
+VPN-STREAMING        | STREAMING                      | 4    
+VPN-VOIP             | VOIP                           | 8    
+-----------------------------------------------------------------
+
+>> Training Stacking...
+[ClusterSMOTE] Stacking RESULTS:
+   Train Acc:   0.9867  (Use to check overfitting)
+   Test Acc:    0.8928
+   Macro-F1:    0.8540
+   Weighted-F1: 0.8929
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8994    0.9133    0.9063       969
+         CHAT     0.8636    0.8339    0.8485       319
+           FT     0.9030    0.8385    0.8696       322
+         MAIL     0.8205    0.7742    0.7967       124
+          P2P     0.9113    0.9113    0.9113       293
+    STREAMING     0.8349    0.8125    0.8235       112
+         VOIP     0.9700    0.9863    0.9781       952
+ VPN-BROWSING     0.8748    0.8971    0.8858      1098
+     VPN-CHAT     0.8109    0.7737    0.7919       327
+       VPN-FT     0.7917    0.8360    0.8132       500
+     VPN-MAIL     0.7444    0.7528    0.7486        89
+      VPN-P2P     0.6774    0.7059    0.6914       119
+VPN-STREAMING     0.9576    0.9040    0.9300       125
+     VPN-VOIP     0.9780    0.9450    0.9612       800
+
+     accuracy                         0.8928      6149
+    macro avg     0.8598    0.8489    0.8540      6149
+ weighted avg     0.8935    0.8928    0.8929      6149
+
+
+[Confusion Focus (Stacking)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 54   
+CHAT                 | VPN-CHAT                       | 17   
+FT                   | VPN-FT                         | 24   
+MAIL                 | VPN-MAIL                       | 15   
+P2P                  | VPN-P2P                        | 9    
+STREAMING            | BROWSING                       | 10   
+VOIP                 | VPN-VOIP                       | 5    
+VPN-BROWSING         | BROWSING                       | 47   
+VPN-CHAT             | VPN-BROWSING                   | 31   
+VPN-FT               | VPN-BROWSING                   | 23   
+VPN-MAIL             | VPN-FT                         | 7    
+VPN-P2P              | P2P                            | 14   
+VPN-STREAMING        | VPN-P2P                        | 4    
+VPN-VOIP             | VOIP                           | 21   
+-----------------------------------------------------------------
+
+
+
+
+--- Feature Jittering ---
+[Jittering] KS=0.1082 | CVR=0.0000
+
+================================================================================
+REPORT: [FeatureJittering] | Train Samples: 71694
+================================================================================
+
+--- 2. MODEL TUNING (Reproducibility) ---
+ > Tuning RandomForest... Done. Best CV F1: 0.9503
+   [Params] {'n_estimators': 146, 'max_depth': 20, 'min_samples_leaf': 3}
+ > Tuning XGBoost... Done. Best CV F1: 0.9610
+   [Params] {'n_estimators': 445, 'max_depth': 9, 'learning_rate': 0.0709833485014607, 'subsample': 0.8137684431448948, 'colsample_bytree': 0.9701000532145354}
+ > Tuning HistGradient... Done. Best CV F1: 0.9590
+   [Params] {'max_iter': 498, 'learning_rate': 0.09911815450346227, 'max_depth': 15, 'l2_regularization': 0.05932453325783525}
+
+--- 3. CLASSIFICATION RESULTS (Performance & Overfitting Check) ---
+
+>> Training RandomForest...
+[FeatureJittering] RandomForest RESULTS:
+   Train Acc:   0.9876  (Use to check overfitting)
+   Test Acc:    0.8754
+   Macro-F1:    0.8370
+   Weighted-F1: 0.8758
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8819    0.8865    0.8842       969
+         CHAT     0.7831    0.8150    0.7988       319
+           FT     0.8980    0.8199    0.8571       322
+         MAIL     0.7211    0.8548    0.7823       124
+          P2P     0.8476    0.9113    0.8783       293
+    STREAMING     0.8491    0.8036    0.8257       112
+         VOIP     0.9809    0.9727    0.9768       952
+ VPN-BROWSING     0.8763    0.8643    0.8702      1098
+     VPN-CHAT     0.7314    0.7829    0.7563       327
+       VPN-FT     0.7890    0.8000    0.7944       500
+     VPN-MAIL     0.7857    0.7416    0.7630        89
+      VPN-P2P     0.7048    0.6218    0.6607       119
+VPN-STREAMING     0.9008    0.9440    0.9219       125
+     VPN-VOIP     0.9627    0.9350    0.9486       800
+
+     accuracy                         0.8754      6149
+    macro avg     0.8366    0.8395    0.8370      6149
+ weighted avg     0.8770    0.8754    0.8758      6149
+
+
+[Confusion Focus (RandomForest)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 51   
+CHAT                 | BROWSING                       | 18   
+FT                   | VPN-FT                         | 14   
+MAIL                 | FT                             | 5    
+P2P                  | CHAT                           | 6    
+STREAMING            | VPN-BROWSING                   | 6    
+VOIP                 | VPN-VOIP                       | 12   
+VPN-BROWSING         | BROWSING                       | 62   
+VPN-CHAT             | VPN-BROWSING                   | 20   
+VPN-FT               | VPN-BROWSING                   | 25   
+VPN-MAIL             | MAIL                           | 10   
+VPN-P2P              | P2P                            | 17   
+VPN-STREAMING        | STREAMING                      | 2    
+VPN-VOIP             | VOIP                           | 13   
+-----------------------------------------------------------------
+
+>> Training XGBoost...
+[FeatureJittering] XGBoost RESULTS:
+   Train Acc:   0.9968  (Use to check overfitting)
+   Test Acc:    0.9013
+   Macro-F1:    0.8647
+   Weighted-F1: 0.9009
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.9088    0.9154    0.9121       969
+         CHAT     0.8675    0.8621    0.8648       319
+           FT     0.9027    0.8354    0.8677       322
+         MAIL     0.8211    0.8145    0.8178       124
+          P2P     0.9113    0.9113    0.9113       293
+    STREAMING     0.9053    0.7679    0.8309       112
+         VOIP     0.9862    0.9737    0.9799       952
+ VPN-BROWSING     0.8675    0.9126    0.8895      1098
+     VPN-CHAT     0.8262    0.8287    0.8275       327
+       VPN-FT     0.8353    0.8520    0.8436       500
+     VPN-MAIL     0.8421    0.7191    0.7758        89
+      VPN-P2P     0.7453    0.6639    0.7022       119
+VPN-STREAMING     0.9134    0.9280    0.9206       125
+     VPN-VOIP     0.9590    0.9650    0.9620       800
+
+     accuracy                         0.9013      6149
+    macro avg     0.8780    0.8535    0.8647      6149
+ weighted avg     0.9014    0.9013    0.9009      6149
+
+
+[Confusion Focus (XGBoost)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 51   
+CHAT                 | BROWSING                       | 13   
+FT                   | VPN-FT                         | 19   
+MAIL                 | FT                             | 7    
+P2P                  | BROWSING                       | 7    
+STREAMING            | VPN-BROWSING                   | 10   
+VOIP                 | VPN-VOIP                       | 14   
+VPN-BROWSING         | BROWSING                       | 41   
+VPN-CHAT             | VPN-BROWSING                   | 26   
+VPN-FT               | VPN-BROWSING                   | 24   
+VPN-MAIL             | MAIL                           | 7    
+VPN-P2P              | P2P                            | 15   
+VPN-STREAMING        | STREAMING                      | 3    
+VPN-VOIP             | P2P                            | 6    
+-----------------------------------------------------------------
+
+>> Training HistGradient...
+[FeatureJittering] HistGradient RESULTS:
+   Train Acc:   0.9935  (Use to check overfitting)
+   Test Acc:    0.8951
+   Macro-F1:    0.8596
+   Weighted-F1: 0.8947
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8832    0.9133    0.8980       969
+         CHAT     0.8825    0.8715    0.8770       319
+           FT     0.8889    0.8447    0.8662       322
+         MAIL     0.8197    0.8065    0.8130       124
+          P2P     0.8993    0.9147    0.9069       293
+    STREAMING     0.8900    0.7946    0.8396       112
+         VOIP     0.9799    0.9716    0.9757       952
+ VPN-BROWSING     0.8622    0.9007    0.8811      1098
+     VPN-CHAT     0.8307    0.8104    0.8204       327
+       VPN-FT     0.8273    0.8240    0.8257       500
+     VPN-MAIL     0.8052    0.6966    0.7470        89
+      VPN-P2P     0.7358    0.6555    0.6933       119
+VPN-STREAMING     0.9350    0.9200    0.9274       125
+     VPN-VOIP     0.9672    0.9575    0.9623       800
+
+     accuracy                         0.8951      6149
+    macro avg     0.8719    0.8487    0.8596      6149
+ weighted avg     0.8950    0.8951    0.8947      6149
+
+
+[Confusion Focus (HistGradient)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 51   
+CHAT                 | BROWSING                       | 14   
+FT                   | VPN-FT                         | 19   
+MAIL                 | FT                             | 10   
+P2P                  | BROWSING                       | 6    
+STREAMING            | VPN-BROWSING                   | 10   
+VOIP                 | VPN-VOIP                       | 13   
+VPN-BROWSING         | BROWSING                       | 57   
+VPN-CHAT             | VPN-BROWSING                   | 31   
+VPN-FT               | VPN-BROWSING                   | 30   
+VPN-MAIL             | MAIL                           | 8    
+VPN-P2P              | P2P                            | 16   
+VPN-STREAMING        | VPN-P2P                        | 4    
+VPN-VOIP             | VOIP                           | 11   
+-----------------------------------------------------------------
+
+>> Training SoftVoting...
+[FeatureJittering] SoftVoting RESULTS:
+   Train Acc:   0.9964  (Use to check overfitting)
+   Test Acc:    0.9001
+   Macro-F1:    0.8659
+   Weighted-F1: 0.8998
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8989    0.9174    0.9081       969
+         CHAT     0.8846    0.8652    0.8748       319
+           FT     0.9057    0.8354    0.8691       322
+         MAIL     0.8211    0.8145    0.8178       124
+          P2P     0.9027    0.9181    0.9103       293
+    STREAMING     0.9062    0.7768    0.8365       112
+         VOIP     0.9831    0.9748    0.9789       952
+ VPN-BROWSING     0.8726    0.9044    0.8882      1098
+     VPN-CHAT     0.8313    0.8287    0.8300       327
+       VPN-FT     0.8216    0.8380    0.8297       500
+     VPN-MAIL     0.8462    0.7416    0.7904        89
+      VPN-P2P     0.7273    0.6723    0.6987       119
+VPN-STREAMING     0.9213    0.9360    0.9286       125
+     VPN-VOIP     0.9613    0.9625    0.9619       800
+
+     accuracy                         0.9001      6149
+    macro avg     0.8774    0.8561    0.8659      6149
+ weighted avg     0.9002    0.9001    0.8998      6149
+
+
+[Confusion Focus (SoftVoting)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 50   
+CHAT                 | BROWSING                       | 15   
+FT                   | VPN-FT                         | 19   
+MAIL                 | FT                             | 9    
+P2P                  | VPN-P2P                        | 7    
+STREAMING            | VPN-BROWSING                   | 9    
+VOIP                 | VPN-VOIP                       | 13   
+VPN-BROWSING         | BROWSING                       | 47   
+VPN-CHAT             | VPN-BROWSING                   | 27   
+VPN-FT               | VPN-BROWSING                   | 24   
+VPN-MAIL             | VPN-FT                         | 7    
+VPN-P2P              | P2P                            | 16   
+VPN-STREAMING        | VPN-P2P                        | 3    
+VPN-VOIP             | VOIP                           | 8    
+-----------------------------------------------------------------
+
+>> Training Stacking...
+[FeatureJittering] Stacking RESULTS:
+   Train Acc:   0.9928  (Use to check overfitting)
+   Test Acc:    0.8982
+   Macro-F1:    0.8568
+   Weighted-F1: 0.8967
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8836    0.9319    0.9071       969
+         CHAT     0.8722    0.8558    0.8639       319
+           FT     0.8907    0.8354    0.8622       322
+         MAIL     0.8220    0.7823    0.8017       124
+          P2P     0.9278    0.9215    0.9247       293
+    STREAMING     0.9140    0.7589    0.8293       112
+         VOIP     0.9710    0.9863    0.9786       952
+ VPN-BROWSING     0.8569    0.9162    0.8856      1098
+     VPN-CHAT     0.8610    0.7768    0.8167       327
+       VPN-FT     0.8212    0.8540    0.8373       500
+     VPN-MAIL     0.8906    0.6404    0.7451        89
+      VPN-P2P     0.8462    0.5546    0.6701       119
+VPN-STREAMING     0.9561    0.8720    0.9121       125
+     VPN-VOIP     0.9624    0.9600    0.9612       800
+
+     accuracy                         0.8982      6149
+    macro avg     0.8911    0.8319    0.8568      6149
+ weighted avg     0.8984    0.8982    0.8967      6149
+
+
+[Confusion Focus (Stacking)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 45   
+CHAT                 | BROWSING                       | 17   
+FT                   | VPN-FT                         | 19   
+MAIL                 | FT                             | 11   
+P2P                  | BROWSING                       | 8    
+STREAMING            | VPN-BROWSING                   | 10   
+VOIP                 | VPN-VOIP                       | 4    
+VPN-BROWSING         | BROWSING                       | 51   
+VPN-CHAT             | VPN-BROWSING                   | 37   
+VPN-FT               | VPN-BROWSING                   | 27   
+VPN-MAIL             | VPN-FT                         | 11   
+VPN-P2P              | P2P                            | 15   
+VPN-STREAMING        | VPN-BROWSING                   | 5    
+VPN-VOIP             | VOIP                           | 20   
+-----------------------------------------------------------------
+
+
+
+
+--- Conditional WGAN-GP ---
+[WGAN] Run 1/3
+[WGAN-GP] KS=0.2058 | CVR=0.0000
+
+================================================================================
+REPORT: [WGAN-GP] | Train Samples: 71694
+================================================================================
+
+--- 2. MODEL TUNING (Reproducibility) ---
+ > Tuning RandomForest... Done. Best CV F1: 0.9471
+   [Params] {'n_estimators': 339, 'max_depth': 20, 'min_samples_leaf': 2}
+ > Tuning XGBoost... Done. Best CV F1: 0.9585
+   [Params] {'n_estimators': 441, 'max_depth': 9, 'learning_rate': 0.09397914625111299, 'subsample': 0.8411645947558615, 'colsample_bytree': 0.7775448707290626}
+ > Tuning HistGradient... Done. Best CV F1: 0.9566
+   [Params] {'max_iter': 434, 'learning_rate': 0.07308330841504969, 'max_depth': 7, 'l2_regularization': 4.870859982244767}
+
+--- 3. CLASSIFICATION RESULTS (Performance & Overfitting Check) ---
+
+>> Training RandomForest...
+[WGAN-GP] RandomForest RESULTS:
+   Train Acc:   0.9896  (Use to check overfitting)
+   Test Acc:    0.8738
+   Macro-F1:    0.8303
+   Weighted-F1: 0.8727
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8653    0.9020    0.8833       969
+         CHAT     0.8056    0.8056    0.8056       319
+           FT     0.9061    0.7795    0.8381       322
+         MAIL     0.7372    0.8145    0.7739       124
+          P2P     0.8484    0.8976    0.8723       293
+    STREAMING     0.8737    0.7411    0.8019       112
+         VOIP     0.9779    0.9779    0.9779       952
+ VPN-BROWSING     0.8472    0.8934    0.8697      1098
+     VPN-CHAT     0.7807    0.7187    0.7484       327
+       VPN-FT     0.7662    0.8060    0.7856       500
+     VPN-MAIL     0.8676    0.6629    0.7516        89
+      VPN-P2P     0.8205    0.5378    0.6497       119
+VPN-STREAMING     0.9194    0.9120    0.9157       125
+     VPN-VOIP     0.9534    0.9463    0.9498       800
+
+     accuracy                         0.8738      6149
+    macro avg     0.8550    0.8140    0.8303      6149
+ weighted avg     0.8745    0.8738    0.8727      6149
+
+
+[Confusion Focus (RandomForest)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 58   
+CHAT                 | BROWSING                       | 18   
+FT                   | VPN-FT                         | 19   
+MAIL                 | BROWSING                       | 4    
+P2P                  | BROWSING                       | 10   
+STREAMING            | VPN-BROWSING                   | 11   
+VOIP                 | VPN-VOIP                       | 11   
+VPN-BROWSING         | BROWSING                       | 57   
+VPN-CHAT             | VPN-BROWSING                   | 35   
+VPN-FT               | VPN-BROWSING                   | 30   
+VPN-MAIL             | MAIL                           | 8    
+VPN-P2P              | P2P                            | 13   
+VPN-STREAMING        | STREAMING                      | 3    
+VPN-VOIP             | VOIP                           | 14   
+-----------------------------------------------------------------
+
+>> Training XGBoost...
+[WGAN-GP] XGBoost RESULTS:
+   Train Acc:   0.9967  (Use to check overfitting)
+   Test Acc:    0.8972
+   Macro-F1:    0.8592
+   Weighted-F1: 0.8968
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8940    0.9143    0.9041       969
+         CHAT     0.8478    0.8558    0.8518       319
+           FT     0.9181    0.8354    0.8748       322
+         MAIL     0.8047    0.8306    0.8175       124
+          P2P     0.9164    0.8976    0.9069       293
+    STREAMING     0.8788    0.7768    0.8246       112
+         VOIP     0.9820    0.9748    0.9784       952
+ VPN-BROWSING     0.8759    0.9062    0.8908      1098
+     VPN-CHAT     0.8313    0.8135    0.8223       327
+       VPN-FT     0.8124    0.8400    0.8260       500
+     VPN-MAIL     0.8267    0.6966    0.7561        89
+      VPN-P2P     0.7358    0.6555    0.6933       119
+VPN-STREAMING     0.9200    0.9200    0.9200       125
+     VPN-VOIP     0.9590    0.9650    0.9620       800
+
+     accuracy                         0.8972      6149
+    macro avg     0.8716    0.8487    0.8592      6149
+ weighted avg     0.8972    0.8972    0.8968      6149
+
+
+[Confusion Focus (XGBoost)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 52   
+CHAT                 | BROWSING                       | 17   
+FT                   | VPN-FT                         | 23   
+MAIL                 | FT                             | 6    
+P2P                  | VPN-P2P                        | 8    
+STREAMING            | BROWSING                       | 9    
+VOIP                 | VPN-VOIP                       | 13   
+VPN-BROWSING         | BROWSING                       | 48   
+VPN-CHAT             | VPN-BROWSING                   | 27   
+VPN-FT               | VPN-BROWSING                   | 24   
+VPN-MAIL             | MAIL                           | 8    
+VPN-P2P              | P2P                            | 14   
+VPN-STREAMING        | STREAMING                      | 3    
+VPN-VOIP             | VOIP                           | 9    
+-----------------------------------------------------------------
+
+>> Training HistGradient...
+[WGAN-GP] HistGradient RESULTS:
+   Train Acc:   0.9899  (Use to check overfitting)
+   Test Acc:    0.8902
+   Macro-F1:    0.8522
+   Weighted-F1: 0.8896
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8815    0.9133    0.8971       969
+         CHAT     0.8232    0.8464    0.8346       319
+           FT     0.9051    0.8292    0.8655       322
+         MAIL     0.7752    0.8065    0.7905       124
+          P2P     0.9007    0.9283    0.9143       293
+    STREAMING     0.8936    0.7500    0.8155       112
+         VOIP     0.9882    0.9706    0.9793       952
+ VPN-BROWSING     0.8519    0.9062    0.8782      1098
+     VPN-CHAT     0.8316    0.7554    0.7917       327
+       VPN-FT     0.8224    0.8240    0.8232       500
+     VPN-MAIL     0.8228    0.7303    0.7738        89
+      VPN-P2P     0.7872    0.6218    0.6948       119
+VPN-STREAMING     0.9194    0.9120    0.9157       125
+     VPN-VOIP     0.9574    0.9563    0.9568       800
+
+     accuracy                         0.8902      6149
+    macro avg     0.8686    0.8393    0.8522      6149
+ weighted avg     0.8904    0.8902    0.8896      6149
+
+
+[Confusion Focus (HistGradient)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 51   
+CHAT                 | BROWSING                       | 16   
+FT                   | VPN-FT                         | 17   
+MAIL                 | FT                             | 7    
+P2P                  | VPN-FT                         | 6    
+STREAMING            | VPN-BROWSING                   | 12   
+VOIP                 | VPN-VOIP                       | 14   
+VPN-BROWSING         | BROWSING                       | 60   
+VPN-CHAT             | VPN-BROWSING                   | 37   
+VPN-FT               | VPN-BROWSING                   | 34   
+VPN-MAIL             | MAIL                           | 8    
+VPN-P2P              | P2P                            | 15   
+VPN-STREAMING        | BROWSING                       | 3    
+VPN-VOIP             | P2P                            | 8    
+-----------------------------------------------------------------
+
+>> Training SoftVoting...
+[WGAN-GP] SoftVoting RESULTS:
+   Train Acc:   0.9957  (Use to check overfitting)
+   Test Acc:    0.8966
+   Macro-F1:    0.8616
+   Weighted-F1: 0.8960
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8922    0.9143    0.9032       969
+         CHAT     0.8718    0.8527    0.8621       319
+           FT     0.9110    0.8261    0.8664       322
+         MAIL     0.7969    0.8226    0.8095       124
+          P2P     0.9088    0.9181    0.9134       293
+    STREAMING     0.9062    0.7768    0.8365       112
+         VOIP     0.9820    0.9737    0.9778       952
+ VPN-BROWSING     0.8604    0.9153    0.8870      1098
+     VPN-CHAT     0.8436    0.7920    0.8170       327
+       VPN-FT     0.8115    0.8440    0.8275       500
+     VPN-MAIL     0.8421    0.7191    0.7758        89
+      VPN-P2P     0.8000    0.6387    0.7103       119
+VPN-STREAMING     0.9200    0.9200    0.9200       125
+     VPN-VOIP     0.9573    0.9537    0.9555       800
+
+     accuracy                         0.8966      6149
+    macro avg     0.8789    0.8477    0.8616      6149
+ weighted avg     0.8969    0.8966    0.8960      6149
+
+
+[Confusion Focus (SoftVoting)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 52   
+CHAT                 | BROWSING                       | 15   
+FT                   | VPN-FT                         | 24   
+MAIL                 | FT                             | 7    
+P2P                  | BROWSING                       | 6    
+STREAMING            | VPN-BROWSING                   | 10   
+VOIP                 | VPN-VOIP                       | 14   
+VPN-BROWSING         | BROWSING                       | 53   
+VPN-CHAT             | VPN-BROWSING                   | 33   
+VPN-FT               | VPN-BROWSING                   | 29   
+VPN-MAIL             | VPN-FT                         | 8    
+VPN-P2P              | P2P                            | 15   
+VPN-STREAMING        | STREAMING                      | 3    
+VPN-VOIP             | VOIP                           | 9    
+-----------------------------------------------------------------
+
+>> Training Stacking...
+[WGAN-GP] Stacking RESULTS:
+   Train Acc:   0.9855  (Use to check overfitting)
+   Test Acc:    0.8784
+   Macro-F1:    0.8123
+   Weighted-F1: 0.8742
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8571    0.9350    0.8944       969
+         CHAT     0.8613    0.8370    0.8490       319
+           FT     0.8904    0.8323    0.8604       322
+         MAIL     0.9722    0.5645    0.7143       124
+          P2P     0.9138    0.9044    0.9091       293
+    STREAMING     0.9589    0.6250    0.7568       112
+         VOIP     0.9757    0.9716    0.9737       952
+ VPN-BROWSING     0.8455    0.9071    0.8752      1098
+     VPN-CHAT     0.8489    0.7217    0.7802       327
+       VPN-FT     0.7053    0.8760    0.7814       500
+     VPN-MAIL     0.9623    0.5730    0.7183        89
+      VPN-P2P     0.9211    0.2941    0.4459       119
+VPN-STREAMING     0.9515    0.7840    0.8596       125
+     VPN-VOIP     0.9383    0.9700    0.9539       800
+
+     accuracy                         0.8784      6149
+    macro avg     0.9002    0.7711    0.8123      6149
+ weighted avg     0.8847    0.8784    0.8742      6149
+
+
+[Confusion Focus (Stacking)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 46   
+CHAT                 | BROWSING                       | 18   
+FT                   | VPN-FT                         | 31   
+MAIL                 | VPN-FT                         | 28   
+P2P                  | BROWSING                       | 9    
+STREAMING            | BROWSING                       | 17   
+VOIP                 | VPN-VOIP                       | 19   
+VPN-BROWSING         | BROWSING                       | 60   
+VPN-CHAT             | VPN-BROWSING                   | 43   
+VPN-FT               | VPN-BROWSING                   | 27   
+VPN-MAIL             | VPN-FT                         | 22   
+VPN-P2P              | VPN-FT                         | 23   
+VPN-STREAMING        | BROWSING                       | 12   
+VPN-VOIP             | BROWSING                       | 6    
+-----------------------------------------------------------------
+
+
+
+--- Conditional CTGAN ---
+[CTGAN] Run 1/3
+
+Sampling conditions: 100%|██████████| 681/681 [00:00<00:00, 1454.02it/s]
+Sampling conditions: 100%|██████████| 3756/3756 [00:02<00:00, 1485.35it/s]
+Sampling conditions: 100%|██████████| 600/600 [00:00<00:00, 1686.02it/s]
+Sampling conditions: 100%|██████████| 2785/2785 [00:01<00:00, 1661.09it/s]
+Sampling conditions: 100%|██████████| 4536/4536 [00:06<00:00, 746.46it/s]
+Sampling conditions: 100%|██████████| 1386/1386 [00:00<00:00, 2027.88it/s]
+Sampling conditions: 100%|██████████| 4708/4708 [00:07<00:00, 615.42it/s]
+Sampling conditions: 100%|██████████| 3597/3597 [00:03<00:00, 1198.34it/s]
+Sampling conditions: 100%|██████████| 3632/3632 [00:02<00:00, 1777.46it/s]
+Sampling conditions: 100%|██████████| 4541/4541 [00:04<00:00, 924.50it/s]
+Sampling conditions: 100%|██████████| 4596/4596 [00:06<00:00, 763.66it/s]
+Sampling conditions: 100%|██████████| 4567/4567 [00:04<00:00, 1037.51it/s]
+Sampling conditions: 100%|██████████| 3619/3619 [00:02<00:00, 1397.67it/s]
+
+[CTGAN] Raw KS=0.2674 | Post KS=0.1668 | CVR=0.0000
+
+================================================================================
+REPORT: [CTGAN_run1] | Train Samples: 71694
+================================================================================
+
+--- 2. MODEL TUNING (Reproducibility) ---
+ > Tuning RandomForest... Done. Best CV F1: 0.4943
+   [Params] {'n_estimators': 482, 'max_depth': 17, 'min_samples_leaf': 2}
+ > Tuning XGBoost... Done. Best CV F1: 0.5104
+   [Params] {'n_estimators': 499, 'max_depth': 10, 'learning_rate': 0.03050353420698562, 'subsample': 0.764084094672658, 'colsample_bytree': 0.7090763110236205}
+ > Tuning HistGradient... Done. Best CV F1: 0.4990
+   [Params] {'max_iter': 437, 'learning_rate': 0.05453185079793281, 'max_depth': 11, 'l2_regularization': 3.995442037395219}
+
+--- 3. CLASSIFICATION RESULTS (Performance & Overfitting Check) ---
+
+>> Training RandomForest...
+[CTGAN_run1] RandomForest RESULTS:
+   Train Acc:   0.9367  (Use to check overfitting)
+   Test Acc:    0.8714
+   Macro-F1:    0.8264
+   Weighted-F1: 0.8704
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8729    0.8927    0.8827       969
+         CHAT     0.8006    0.8182    0.8093       319
+           FT     0.8925    0.7733    0.8286       322
+         MAIL     0.7519    0.8065    0.7782       124
+          P2P     0.8548    0.8840    0.8691       293
+    STREAMING     0.8416    0.7589    0.7981       112
+         VOIP     0.9789    0.9758    0.9774       952
+ VPN-BROWSING     0.8442    0.8934    0.8681      1098
+     VPN-CHAT     0.7735    0.7309    0.7516       327
+       VPN-FT     0.7615    0.7920    0.7765       500
+     VPN-MAIL     0.7973    0.6629    0.7239        89
+      VPN-P2P     0.7927    0.5462    0.6468       119
+VPN-STREAMING     0.9120    0.9120    0.9120       125
+     VPN-VOIP     0.9509    0.9450    0.9480       800
+
+     accuracy                         0.8714      6149
+    macro avg     0.8447    0.8137    0.8264      6149
+ weighted avg     0.8715    0.8714    0.8704      6149
+
+
+[Confusion Focus (RandomForest)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 62   
+CHAT                 | BROWSING                       | 16   
+FT                   | VPN-FT                         | 22   
+MAIL                 | VPN-FT                         | 5    
+P2P                  | VPN-VOIP                       | 10   
+STREAMING            | VPN-BROWSING                   | 11   
+VOIP                 | VPN-VOIP                       | 11   
+VPN-BROWSING         | BROWSING                       | 52   
+VPN-CHAT             | VPN-BROWSING                   | 33   
+VPN-FT               | VPN-BROWSING                   | 29   
+VPN-MAIL             | MAIL                           | 9    
+VPN-P2P              | P2P                            | 14   
+VPN-STREAMING        | STREAMING                      | 3    
+VPN-VOIP             | VOIP                           | 14   
+-----------------------------------------------------------------
+
+>> Training XGBoost...
+[CTGAN_run1] XGBoost RESULTS:
+   Train Acc:   0.9811  (Use to check overfitting)
+   Test Acc:    0.8881
+   Macro-F1:    0.8496
+   Weighted-F1: 0.8878
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8955    0.9020    0.8987       969
+         CHAT     0.8476    0.8370    0.8423       319
+           FT     0.9059    0.8075    0.8539       322
+         MAIL     0.7810    0.8629    0.8199       124
+          P2P     0.8734    0.9181    0.8952       293
+    STREAMING     0.8750    0.7500    0.8077       112
+         VOIP     0.9861    0.9706    0.9783       952
+ VPN-BROWSING     0.8536    0.9080    0.8800      1098
+     VPN-CHAT     0.7798    0.7798    0.7798       327
+       VPN-FT     0.8204    0.8220    0.8212       500
+     VPN-MAIL     0.8333    0.6742    0.7453        89
+      VPN-P2P     0.7273    0.6723    0.6987       119
+VPN-STREAMING     0.9200    0.9200    0.9200       125
+     VPN-VOIP     0.9595    0.9475    0.9535       800
+
+     accuracy                         0.8881      6149
+    macro avg     0.8613    0.8408    0.8496      6149
+ weighted avg     0.8888    0.8881    0.8878      6149
+
+
+[Confusion Focus (XGBoost)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 58   
+CHAT                 | BROWSING                       | 15   
+FT                   | VPN-FT                         | 18   
+MAIL                 | FT                             | 4    
+P2P                  | BROWSING                       | 7    
+STREAMING            | VPN-BROWSING                   | 11   
+VOIP                 | VPN-VOIP                       | 14   
+VPN-BROWSING         | BROWSING                       | 46   
+VPN-CHAT             | VPN-BROWSING                   | 34   
+VPN-FT               | VPN-BROWSING                   | 31   
+VPN-MAIL             | MAIL                           | 9    
+VPN-P2P              | P2P                            | 14   
+VPN-STREAMING        | STREAMING                      | 4    
+VPN-VOIP             | P2P                            | 11   
+-----------------------------------------------------------------
+
+>> Training HistGradient...
+[CTGAN_run1] HistGradient RESULTS:
+   Train Acc:   0.7248  (Use to check overfitting)
+   Test Acc:    0.8696
+   Macro-F1:    0.8197
+   Weighted-F1: 0.8683
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8788    0.8906    0.8847       969
+         CHAT     0.7768    0.8182    0.7969       319
+           FT     0.8776    0.7795    0.8257       322
+         MAIL     0.6875    0.7984    0.7388       124
+          P2P     0.8521    0.9044    0.8775       293
+    STREAMING     0.9111    0.7321    0.8119       112
+         VOIP     0.9770    0.9811    0.9790       952
+ VPN-BROWSING     0.8304    0.9098    0.8683      1098
+     VPN-CHAT     0.7705    0.6881    0.7270       327
+       VPN-FT     0.7955    0.7780    0.7867       500
+     VPN-MAIL     0.7971    0.6180    0.6962        89
+      VPN-P2P     0.7647    0.5462    0.6373       119
+VPN-STREAMING     0.8906    0.9120    0.9012       125
+     VPN-VOIP     0.9576    0.9313    0.9442       800
+
+     accuracy                         0.8696      6149
+    macro avg     0.8405    0.8063    0.8197      6149
+ weighted avg     0.8700    0.8696    0.8683      6149
+
+
+[Confusion Focus (HistGradient)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 66   
+CHAT                 | BROWSING                       | 16   
+FT                   | VPN-FT                         | 16   
+MAIL                 | FT                             | 6    
+P2P                  | VPN-FT                         | 8    
+STREAMING            | VPN-BROWSING                   | 12   
+VOIP                 | VPN-VOIP                       | 11   
+VPN-BROWSING         | BROWSING                       | 53   
+VPN-CHAT             | VPN-BROWSING                   | 40   
+VPN-FT               | VPN-BROWSING                   | 38   
+VPN-MAIL             | MAIL                           | 14   
+VPN-P2P              | P2P                            | 14   
+VPN-STREAMING        | VPN-P2P                        | 5    
+VPN-VOIP             | VOIP                           | 16   
+-----------------------------------------------------------------
+
+>> Training SoftVoting...
+[CTGAN_run1] SoftVoting RESULTS:
+   Train Acc:   0.9513  (Use to check overfitting)
+   Test Acc:    0.8857
+   Macro-F1:    0.8431
+   Weighted-F1: 0.8850
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8896    0.9061    0.8978       969
+         CHAT     0.8262    0.8495    0.8377       319
+           FT     0.8938    0.8106    0.8502       322
+         MAIL     0.7357    0.8306    0.7803       124
+          P2P     0.8544    0.9010    0.8771       293
+    STREAMING     0.8763    0.7589    0.8134       112
+         VOIP     0.9841    0.9727    0.9783       952
+ VPN-BROWSING     0.8580    0.9135    0.8849      1098
+     VPN-CHAT     0.8013    0.7645    0.7825       327
+       VPN-FT     0.8221    0.8040    0.8129       500
+     VPN-MAIL     0.8451    0.6742    0.7500        89
+      VPN-P2P     0.7449    0.6134    0.6728       119
+VPN-STREAMING     0.9127    0.9200    0.9163       125
+     VPN-VOIP     0.9557    0.9437    0.9497       800
+
+     accuracy                         0.8857      6149
+    macro avg     0.8571    0.8331    0.8431      6149
+ weighted avg     0.8859    0.8857    0.8850      6149
+
+
+[Confusion Focus (SoftVoting)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 55   
+CHAT                 | BROWSING                       | 15   
+FT                   | VPN-FT                         | 12   
+MAIL                 | FT                             | 6    
+P2P                  | BROWSING                       | 9    
+STREAMING            | VPN-BROWSING                   | 11   
+VOIP                 | VPN-VOIP                       | 16   
+VPN-BROWSING         | BROWSING                       | 44   
+VPN-CHAT             | VPN-BROWSING                   | 32   
+VPN-FT               | VPN-BROWSING                   | 31   
+VPN-MAIL             | MAIL                           | 10   
+VPN-P2P              | P2P                            | 15   
+VPN-STREAMING        | STREAMING                      | 4    
+VPN-VOIP             | P2P                            | 15   
+-----------------------------------------------------------------
+
+>> Training Stacking...
+[CTGAN_run1] Stacking RESULTS:
+   Train Acc:   0.8318  (Use to check overfitting)
+   Test Acc:    0.8413
+   Macro-F1:    0.6729
+   Weighted-F1: 0.8241
+
+   [Detailed Report]
+               precision    recall  f1-score   support
+
+     BROWSING     0.8335    0.9092    0.8697       969
+         CHAT     0.8360    0.8307    0.8333       319
+           FT     0.7384    0.8416    0.7866       322
+         MAIL     0.6923    0.0726    0.1314       124
+          P2P     0.8820    0.9181    0.8997       293
+    STREAMING     0.7692    0.1786    0.2899       112
+         VOIP     0.9759    0.9779    0.9769       952
+ VPN-BROWSING     0.8080    0.9162    0.8587      1098
+     VPN-CHAT     0.7500    0.7064    0.7276       327
+       VPN-FT     0.6683    0.8300    0.7404       500
+     VPN-MAIL     0.8974    0.3933    0.5469        89
+      VPN-P2P     0.4783    0.0924    0.1549       119
+VPN-STREAMING     0.9130    0.5040    0.6495       125
+     VPN-VOIP     0.9516    0.9575    0.9545       800
+
+     accuracy                         0.8413      6149
+    macro avg     0.7996    0.6520    0.6729      6149
+ weighted avg     0.8376    0.8413    0.8241      6149
+
+
+[Confusion Focus (Stacking)]
+Class                | Most Common Confusion          | Count
+-----------------------------------------------------------------
+BROWSING             | VPN-BROWSING                   | 55   
+CHAT                 | BROWSING                       | 16   
+FT                   | VPN-FT                         | 23   
+MAIL                 | FT                             | 30   
+P2P                  | BROWSING                       | 5    
+STREAMING            | VPN-FT                         | 36   
+VOIP                 | VPN-VOIP                       | 11   
+VPN-BROWSING         | BROWSING                       | 53   
+VPN-CHAT             | VPN-BROWSING                   | 54   
+VPN-FT               | VPN-BROWSING                   | 34   
+VPN-MAIL             | VPN-FT                         | 28   
+VPN-P2P              | VPN-FT                         | 31   
+VPN-STREAMING        | BROWSING                       | 29   
+VPN-VOIP             | VOIP                           | 13   
+-----------------------------------------------------------------
